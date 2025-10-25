@@ -1,65 +1,180 @@
-import Image from "next/image";
+"use client";
+import React, { useRef, useState } from "react";
+import ColorThief from "colorthief";
 
-export default function Home() {
+const Page = () => {
+  const inputFile = useRef<HTMLInputElement>(null);
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
+  const [loading, setloading] = useState<boolean>(true);
+  const [urlImage, seturlImage] = useState<string>("");
+  const [colors, setcolors] = useState<string[]>([]);
+  const [randomColorId, setrandomColorId] = useState<number>(0);
+  const [addedToFav, setaddedToFav] = useState<boolean>(false);
+
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file: any = e.target.files?.[0];
+    if (!file) return;
+
+    setImageLoaded(false);
+    setloading(false);
+    const url = URL.createObjectURL(file);
+    console.log(url);
+    seturlImage(url);
+
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = url;
+    console.log(img, img.src);
+
+    img.onload = () => {
+      handleExtract(img);
+    };
+  };
+
+  const handleExtract = (file: HTMLImageElement) => {
+    const extract = new ColorThief();
+    const color: ColorThief.RGBColor[] = extract.getPalette(file, 5);
+    console.log(color);
+    setcolors(color as []);
+
+    const num = Math.floor(Math.random() * color.length);
+    setrandomColorId(num);
+
+    setTimeout(() => {
+      setImageLoaded(true);
+      setloading(true);
+    }, 2000);
+  };
+
+  const handleDelete = () => {
+    setImageLoaded(false);
+  };
+
+  const handleFav = () => {
+    setaddedToFav(!addedToFav);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="flex-1 gap-8 flex flex-col pt-4 justify-center items-center">
+      <div className="w-full flex flex-col items-center">
+        <div className=" flex justify-between w-full px-4 max-md:px-0 max-md:w-10/12 ">
+          {loading ? (
+            <button
+              key={imageLoaded ? "replace" : "upload"}
+              className={` font-[maven_pro] capitalize  text-black/50 rounded-full w-fit text-nowrap hover:bg-cyan-500/10 transition cursor-pointer ${
+                imageLoaded ? "mx-0" : "mx-auto"
+              }`}
+              onClick={() => {
+                inputFile.current?.click();
+              }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              {imageLoaded ? (
+                <div
+                  className="flex gap-2 justify-center items-center pr-4"
+                  data-aos="zoom-in"
+                >
+                  <div className="h-10 w-10 rounded-full flex justify-center items-center bg-cyan-500/10 text-green-500">
+                    <i className="fi fi-tr-replace mt-1 text-lg"></i>
+                  </div>
+                  <p>replace</p>
+                </div>
+              ) : (
+                <div
+                  className="flex gap-2 justify-center items-center pr-4"
+                  data-aos="fade-up"
+                >
+                  <div className="h-10 w-10 rounded-full flex justify-center items-center bg-green-500/10 text-green-500">
+                    <i className="fi fi-tr-progress-upload mt-1 text-lg"></i>
+                  </div>
+                  <p>upload image</p>
+                </div>
+              )}
+              <input
+                ref={inputFile}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleUpload}
+              />
+            </button>
+          ) : (
+            <div className={`${imageLoaded ? "mx-0" : "mx-auto"} loader`}></div>
+          )}
+
+          {imageLoaded && (
+            <div className="flex gap-4">
+              <div
+                key={addedToFav ? "fav" : "unfav"}
+                className="border border-cyan-500/20 text-cyan-500/50 flex justify-center items-center w-10 h-10 rounded-full hover:bg-cyan-100 transition cursor-pointer"
+                onClick={handleFav}
+                data-aos="fade-in"
+              >
+                {addedToFav ? (
+                  <i className="fi fi-sr-heart mt-1" data-aos="zoom-in"></i>
+                ) : (
+                  <i className="fi fi-rr-heart mt-1" data-aos="zoom-out"></i>
+                )}
+              </div>
+              <div
+                className="border border-red-500/20 text-red-500/50 flex justify-center items-center w-10 h-10 rounded-full hover:bg-red-100 transition cursor-pointer"
+                onClick={handleDelete}
+                data-aos="fade-in"
+                data-aos-delay="100"
+              >
+                <i className="fi fi-rr-trash mt-1"></i>
+              </div>
+            </div>
+          )}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="max-md:max-w-11/12 max-md:mx-auto ">
+          <div className="relative max-h-[400px] rounded-2xl mt-4 p-4 flex flex-col">
+            {imageLoaded && (
+              <div key={urlImage} className="flex-1" data-aos="zoom-in">
+                <div
+                  className="absolute animate-rotate top-4 left-0 w-full h-full blur-3xl -z-1 overflow-hidden "
+                  style={{
+                    backgroundColor: `rgba(${colors[randomColorId][0]}, ${colors[randomColorId][1]}, ${colors[randomColorId][2]},0.3)`,
+                  }}
+                />
+                <img
+                  src={urlImage}
+                  className="max-h-[400px] rounded-2xl object-contain p-2"
+                  alt=""
+                  style={{
+                    transform: "translateY(-10px)",
+                    boxShadow: `inset 0 0 50px rgba(${colors[randomColorId][0]}, ${colors[randomColorId][1]}, ${colors[randomColorId][2]},0.3)`,
+                  }}
+                />
+              </div>
+            )}
+          </div>
         </div>
-      </main>
+      </div>
+      {imageLoaded && colors.length > 0 && (
+        <div
+          className="flex-1 w-full flex gap-4 justify-between items-center max-md:w-11/12"
+          key={urlImage}
+          data-aos="fade-up"
+        >
+          {colors.map((color, i) => {
+            return (
+              <div
+                key={i}
+                className={`w-12 h-12 
+                rounded-full cursor-pointer `}
+                style={{
+                  backgroundColor: `rgb(${color[0]}, ${color[1]}, ${color[2]})`,
+                  boxShadow: ` 0 0 0 5px rgba(${colors[randomColorId][0]}, ${colors[randomColorId][1]}, ${colors[randomColorId][2]},0.1)`,
+                }}
+                data-aos="zoom-out"
+                data-aos-delay={100 + i * 100}
+              ></div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
-}
+};
+
+export default Page;

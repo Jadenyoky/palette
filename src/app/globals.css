@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+Fonts | Asap - Maven_Pro - Inconsolata
+*/
+
+body {
+  font-family: 'Asap', 'Maven Pro', 'Inconsolata';
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+button {
+  outline: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.animate-rotate {
+  animation: rotate 5s linear infinite;
+}
+
+@keyframes rotate {
+
+  0%,
+  100% {
+    transform: scale(0.5);
+  }
+
+  50% {
+    transform: scale(1);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 70px;
+  height: 40px;
+  outline: 2px solid #00B8DB;
+  background:
+    radial-gradient(farthest-side, white 90%, #0000) 0 0/8px 8px no-repeat,
+    linear-gradient(#00B8DB 0 0) 50%/10px 100% no-repeat,
+    conic-gradient(from 90deg at 10px 10px, #0000 90deg, #00B8DB 0),
+    conic-gradient(from -90deg at 60px 30px, #0000 90deg, #00B8DB 0);
+  animation: l4 2s infinite;
+}
+
+@keyframes l4 {
+  0% {
+    background-position: 0 0, 50%;
+    clip-path: circle(15px at left 4px top 4px)
+  }
+
+  12.5% {
+    background-position: 50% 0, 50%;
+    clip-path: circle(15px at left 50% top 4px)
+  }
+
+  25% {
+    background-position: 50% 100%, 50%;
+    clip-path: circle(15px at left 50% bottom 4px)
+  }
+
+  37.5% {
+    background-position: 100% 100%, 50%;
+    clip-path: circle(15px at right 4px bottom 4px)
+  }
+
+  50% {
+    background-position: 100% 0, 50%;
+    clip-path: circle(15px at right 4px top 4px)
+  }
+
+  62.5% {
+    background-position: 50% 0, 50%;
+    clip-path: circle(15px at right 50% top 4px)
+  }
+
+  75% {
+    background-position: 50% 100%, 50%;
+    clip-path: circle(15px at right 50% bottom 4px)
+  }
+
+  82.5% {
+    background-position: 0 100%, 50%;
+    clip-path: circle(15px at left 4px bottom 4px)
+  }
+
+  100% {
+    background-position: 0 0, 50%;
+    clip-path: circle(15px at left 4px top 4px)
+  }
 }
