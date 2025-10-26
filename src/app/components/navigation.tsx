@@ -44,7 +44,8 @@ const Top = () => {
         {links.map((link, i) => {
           const isActive = link.location === pathname;
           return (
-            <div
+            <button
+              type="button"
               key={i}
               className={`flex justify-center gap-4 max-md:gap-3 items-center text-black/70
                 ${
@@ -63,15 +64,15 @@ const Top = () => {
                 } text-lg mt-1 ${isActive ? "" : ""} `}
                 data-aos="fade-in"
               />
-              <span
+              <p
                 className={`max-md:text-sm font-semibold capitalize ${
                   isActive ? "" : "hidden"
                 }`}
                 data-aos="zoom-in"
               >
                 {link.name}
-              </span>
-            </div>
+              </p>
+            </button>
           );
         })}
       </div>

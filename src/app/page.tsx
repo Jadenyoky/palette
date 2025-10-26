@@ -36,34 +36,53 @@ const Page = () => {
     console.log(img, img.src);
 
     img.onload = async () => {
-      handleExtract(img);
+      handleExtract(img, file);
 
-      const item: ItemTypes = {
-        id: v4(),
-        name: file.name,
-        blob: file,
-        createdAt: Date.now(),
-      };
-      await addItem("items_store", item);
-      console.log("Image added to IndexedDB");
-
-      sessionStorage.setItem("currentItem", item.id as any);
+      // const item: ItemTypes = {
+      //   id: v4(),
+      //   name: file.name,
+      //   blob: file,
+      //   createdAt: Date.now(),
+      //   palette: colors,
+      //   shadow: convertToHex(
+      //     colors[randomColorId][0],
+      //     colors[randomColorId][1],
+      //     colors[randomColorId][2]
+      //   ),
+      // };
+      // await addItem("items_store", item);
+      // console.log("Image added to IndexedDB");
     };
   };
 
-  const handleExtract = (file: HTMLImageElement) => {
+  const handleExtract = async (img: HTMLImageElement, file: any) => {
     const extract = new ColorThief();
-    const color: ColorThief.RGBColor[] = extract.getPalette(file, 5);
+    const color: ColorThief.RGBColor[] = extract.getPalette(img, 5);
     console.log(color);
     setcolors(color as []);
 
     const num = Math.floor(Math.random() * color.length);
     setrandomColorId(num);
 
+    console.log(file);
+
+    const item: ItemTypes = {
+      id: v4(),
+      name: file.name,
+      blob: file,
+      createdAt: Date.now(),
+      palette: color,
+      shadow: convertToHex(color[num][0], color[num][1], color[num][2]),
+    };
+    await addItem("items_store", item);
+    console.log("Image added to IndexedDB");
+
+    sessionStorage.setItem("currentItem", item.id as any);
+
     setTimeout(() => {
       setImageLoaded(true);
       setloading(true);
-    }, 2000);
+    }, num * 400);
   };
 
   const handleDelete = () => {
@@ -88,22 +107,43 @@ const Page = () => {
     const url = URL.createObjectURL(item.blob);
     seturlImage(url);
 
-    const img = new Image();
-    img.crossOrigin = "Anonymous";
-    img.src = url;
-    console.log(img, img.src);
+    setcolors(item.palette);
+    setrandomColorId(Math.floor(Math.random() * item.palette.length));
 
-    img.onload = () => {
-      setloading(false);
-      setImageLoaded(false);
+    setloading(true);
+    setImageLoaded(true);
+    // const img = new Image();
+    // img.crossOrigin = "Anonymous";
+    // img.src = url;
+    // console.log(img, img.src);
 
-      handleExtract(img);
-    };
+    // img.onload = () => {
+    //   setloading(false);
+    //   setImageLoaded(false);
+
+    //   handleExtract(img, item);
+    // };
   };
 
   useEffect(() => {
     handleCurrentItem();
   }, []);
+
+  const convertToHex = (
+    r: string | number,
+    g: string | number,
+    b: string | number
+  ) => {
+    const hex = `#${[r, g, b]
+      .map((x) => {
+        const h = x.toString(16);
+        return h.length === 1 ? "0" + h : h;
+      })
+      .join("")}`;
+
+    console.log(hex);
+    return hex;
+  };
 
   return (
     <div className="flex-1 gap-8 flex flex-col pt-4 justify-center items-center">
@@ -189,10 +229,10 @@ const Page = () => {
                 />
                 <img
                   src={urlImage}
-                  className="max-h-[400px] rounded-2xl object-contain p-2 overflow-hidden "
+                  className="max-md:max-h-[300px] max-h-[350px] rounded-2xl object-contain p-2 overflow-hidden "
                   alt=""
                   style={{
-                    transform: "translateY(-10px)",
+                    // transform: "translateY(-10px)",
                     boxShadow: `inset 0 0 50px rgba(${colors[randomColorId][0]}, ${colors[randomColorId][1]}, ${colors[randomColorId][2]},0.5)`,
                   }}
                 />
@@ -208,21 +248,6 @@ const Page = () => {
           data-aos="fade-up"
         >
           {colors.map((color, i) => {
-            const convertToHex = (
-              r: string | number,
-              g: string | number,
-              b: string | number
-            ) => {
-              const hex = `#${[r, g, b]
-                .map((x) => {
-                  const h = x.toString(16);
-                  return h.length === 1 ? "0" + h : h;
-                })
-                .join("")}`;
-
-              console.log(hex);
-              return hex;
-            };
             const handleCopy = () => {
               const hex = convertToHex(color[0], color[1], color[2]);
               navigator.clipboard.writeText(hex);

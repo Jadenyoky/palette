@@ -5,6 +5,9 @@ export interface ItemTypes {
   name: string;
   blob: Blob;
   createdAt: number;
+
+  palette: any;
+  shadow: string;
 }
 
 export interface ColorTypes {

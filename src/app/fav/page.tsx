@@ -10,9 +10,7 @@ const Page = () => {
     const items = await getAllItems("fav_store");
     console.log(items);
     setitems(items);
-    setTimeout(() => {
-      setloading(true);
-    }, 1000);
+    setloading(true);
   };
 
   useEffect(() => {
@@ -22,13 +20,29 @@ const Page = () => {
 
   if (!loading)
     return (
-      <div className="flex-1 border flex justify-center items-center">
+      <div className="flex-1 flex justify-center items-center">
         <div className="loader"></div>
       </div>
     );
-  if (items.length === 0) return <div>No colors yet</div>;
+  if (items.length === 0 && loading)
+    return (
+      <div className="flex-1 flex flex-col gap-4 justify-center items-center text-black/40">
+        <i
+          className="fi fi-rr-palette text-2xl "
+          data-aos="fade-down"
+          data-aos-delay="300"
+        ></i>
+        <p
+          className="capitalize font-[inconsolata] "
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          no colors yet
+        </p>
+      </div>
+    );
   return (
-    <div className="border flex-1 gap-4 flex flex-col justify-between items-center">
+    <div className="flex-1 gap-4 flex flex-col justify-between items-center">
       {items.map((color: ColorTypes, i: number) => {
         return (
           <div
