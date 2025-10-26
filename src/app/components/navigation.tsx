@@ -25,7 +25,7 @@ const Top = () => {
       acitve: "fi fi-sr-add-image",
     },
     {
-      name: "favorites",
+      name: "fav",
       location: "/fav",
       icon: "fi-rr-heart",
       acitve: "fi-sr-heart",

@@ -1,6 +1,15 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ColorThief from "colorthief";
+import {
+  ItemTypes,
+  addItem,
+  deleteItem,
+  clearAllItems,
+  getAllItems,
+  getItem,
+} from "./db";
+import { v4 } from "uuid";
 
 const Page = () => {
   const inputFile = useRef<HTMLInputElement>(null);
@@ -26,8 +35,19 @@ const Page = () => {
     img.src = url;
     console.log(img, img.src);
 
-    img.onload = () => {
+    img.onload = async () => {
       handleExtract(img);
+
+      const item: ItemTypes = {
+        id: v4(),
+        name: file.name,
+        blob: file,
+        createdAt: Date.now(),
+      };
+      await addItem(item);
+      console.log("Image added to IndexedDB");
+
+      sessionStorage.setItem("currentItem", item.id as any);
     };
   };
 
@@ -48,11 +68,40 @@ const Page = () => {
 
   const handleDelete = () => {
     setImageLoaded(false);
+    sessionStorage.removeItem("currentItem");
   };
 
   const handleFav = () => {
     setaddedToFav(!addedToFav);
   };
+
+  const handleCurrentItem = async () => {
+    const storedId = sessionStorage.getItem("currentItem");
+
+    if (!storedId) return;
+
+    const item = await getItem(storedId);
+    console.log(item);
+
+    const url = URL.createObjectURL(item.blob);
+    seturlImage(url);
+
+    const img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = url;
+    console.log(img, img.src);
+
+    img.onload = () => {
+      setloading(false);
+      setImageLoaded(false);
+
+      handleExtract(img);
+    };
+  };
+
+  useEffect(() => {
+    handleCurrentItem();
+  }, []);
 
   return (
     <div className="flex-1 gap-8 flex flex-col pt-4 justify-center items-center">
@@ -138,11 +187,11 @@ const Page = () => {
                 />
                 <img
                   src={urlImage}
-                  className="max-h-[400px] rounded-2xl object-contain p-2"
+                  className="max-h-[400px] rounded-2xl object-contain p-2 overflow-hidden "
                   alt=""
                   style={{
                     transform: "translateY(-10px)",
-                    boxShadow: `inset 0 0 50px rgba(${colors[randomColorId][0]}, ${colors[randomColorId][1]}, ${colors[randomColorId][2]},0.3)`,
+                    boxShadow: `inset 0 0 50px rgba(${colors[randomColorId][0]}, ${colors[randomColorId][1]}, ${colors[randomColorId][2]},0.5)`,
                   }}
                 />
               </div>

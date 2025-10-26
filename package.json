@@ -14,10 +14,12 @@
     "@types/colorthief": "^2.6.0",
     "aos": "^2.3.4",
     "colorthief": "^2.6.0",
+    "idb": "^8.0.3",
     "next": "16.0.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "store2": "^2.14.4"
+    "store2": "^2.14.4",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

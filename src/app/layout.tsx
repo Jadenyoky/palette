@@ -6,8 +6,8 @@ import "aos/dist/aos.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Color Hue",
-    template: "%s | Color Hue",
+    default: "Palette",
+    template: "%s | Palette",
   },
   description: "Extract colors hue from images easily",
 };
