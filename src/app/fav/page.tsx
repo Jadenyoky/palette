@@ -10,7 +10,9 @@ const Page = () => {
     const items = await getAllItems("fav_store");
     console.log(items);
     setitems(items);
-    setloading(true);
+    setTimeout(() => {
+      setloading(true);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -18,8 +20,13 @@ const Page = () => {
     return () => {};
   }, []);
 
-  if (!items) return <div>No colors yet</div>;
-  if (!loading) return <div>loading</div>;
+  if (!loading)
+    return (
+      <div className="flex-1 border flex justify-center items-center">
+        <div className="loader"></div>
+      </div>
+    );
+  if (items.length === 0) return <div>No colors yet</div>;
   return (
     <div className="border flex-1 gap-4 flex flex-col justify-between items-center">
       {items.map((color: ColorTypes, i: number) => {

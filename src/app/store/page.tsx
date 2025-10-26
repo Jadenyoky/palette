@@ -9,9 +9,11 @@ const Page = () => {
   const [loading, setloading] = useState<boolean>(false);
   const handleGetItems = async () => {
     const items = await getAllItems("items_store");
-    const colors = await getAllItems("fav_store");
-    console.log(items, colors);
+    console.log(items);
     setitems(items);
+    setTimeout(() => {
+      setloading(true);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -25,8 +27,13 @@ const Page = () => {
     router.push(location);
   };
 
-  if (!items) return <div>No items yet</div>;
-  if (!loading) return <div>loading</div>;
+  if (!loading)
+    return (
+      <div className="flex-1 border flex justify-center items-center">
+        <div className="loader"></div>
+      </div>
+    );
+  if (items.length === 0) return <div>No items yet</div>;
   return (
     <div className="border flex-1 gap-4 flex flex-col justify-between items-center">
       <div className="flex flex-wrap gap-1">
