@@ -8,8 +8,9 @@ const Page = () => {
   const [items, setitems] = useState<any>([]);
   const [loading, setloading] = useState<boolean>(false);
   const handleGetItems = async () => {
-    const items = await getAllItems();
-    console.log(items);
+    const items = await getAllItems("items_store");
+    const colors = await getAllItems("fav_store");
+    console.log(items, colors);
     setitems(items);
   };
 
@@ -24,7 +25,8 @@ const Page = () => {
     router.push(location);
   };
 
-  if (!items) return <div>loading</div>;
+  if (!items) return <div>No items yet</div>;
+  if (!loading) return <div>loading</div>;
   return (
     <div className="border flex-1 gap-4 flex flex-col justify-between items-center">
       <div className="flex flex-wrap gap-1">

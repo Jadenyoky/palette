@@ -7,45 +7,60 @@ export interface ItemTypes {
   createdAt: number;
 }
 
+export interface ColorTypes {
+  id: string | number;
+  hex: string;
+  rgb: string;
+  createdAt: number;
+}
+
 const db_name = "palette_db";
-const store_name = "palette_store";
+const store_items = "items_store";
+const store_colors = "fav_store";
 
 export const getDB = async () => {
   return openDB(db_name, 1, {
     upgrade(db) {
-      if (!db.objectStoreNames.contains(store_name)) {
-        const store = db.createObjectStore(store_name, {
+      if (!db.objectStoreNames.contains(store_items)) {
+        const create = db.createObjectStore(store_items, {
           keyPath: "id",
         });
-        store.createIndex("createdAt", "createdAt");
+        create.createIndex("createdAt", "createdAt");
+      }
+
+      if (!db.objectStoreNames.contains(store_colors)) {
+        const create = db.createObjectStore(store_colors, {
+          keyPath: "id",
+        });
+        create.createIndex("createdAt", "createdAt");
       }
     },
   });
 };
 
-export const addItem = async (item: ItemTypes) => {
+export const addItem = async (store: string, item: ItemTypes | ColorTypes) => {
   const db = await getDB();
-  await db.add(store_name, { ...item });
+  await db.add(store, { ...item });
 };
 
-export const getItem = async (id: any) => {
+export const getItem = async (store: string, id: any) => {
   const db = await getDB();
-  const item = await db.get(store_name, id);
+  const item = await db.get(store, id);
   return item;
 };
 
-export const getAllItems = async () => {
+export const getAllItems = async (store: string) => {
   const db = await getDB();
-  const items = await db.getAll(store_name);
+  const items = await db.getAll(store);
   return items;
 };
 
-export const deleteItem = async (id: any) => {
+export const deleteItem = async (store: string, id: any) => {
   const db = await getDB();
-  await db.delete(store_name, id);
+  await db.delete(store, id);
 };
 
-export const clearAllItems = async () => {
+export const clearAllItems = async (store: string) => {
   const db = await getDB();
-  await db.clear(store_name);
+  await db.clear(store);
 };
