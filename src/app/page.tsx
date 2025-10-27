@@ -37,21 +37,6 @@ const Page = () => {
 
     img.onload = async () => {
       handleExtract(img, file);
-
-      // const item: ItemTypes = {
-      //   id: v4(),
-      //   name: file.name,
-      //   blob: file,
-      //   createdAt: Date.now(),
-      //   palette: colors,
-      //   shadow: convertToHex(
-      //     colors[randomColorId][0],
-      //     colors[randomColorId][1],
-      //     colors[randomColorId][2]
-      //   ),
-      // };
-      // await addItem("items_store", item);
-      // console.log("Image added to IndexedDB");
     };
   };
 
@@ -112,17 +97,6 @@ const Page = () => {
 
     setloading(true);
     setImageLoaded(true);
-    // const img = new Image();
-    // img.crossOrigin = "Anonymous";
-    // img.src = url;
-    // console.log(img, img.src);
-
-    // img.onload = () => {
-    //   setloading(false);
-    //   setImageLoaded(false);
-
-    //   handleExtract(img, item);
-    // };
   };
 
   useEffect(() => {

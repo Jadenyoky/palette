@@ -35,8 +35,13 @@ const Top = () => {
   useEffect(() => {
     Aos.init({
       offset: 0,
+      once: true,
     });
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div className="sticky bottom-0 mx-auto max-md:mx-0" data-aos="fade-in">
