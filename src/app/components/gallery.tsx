@@ -1,6 +1,7 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { deleteItem, ItemTypes } from "../db";
+import Aos from "aos";
 
 const Gallery = ({
   item,
@@ -31,26 +32,40 @@ const Gallery = ({
 
   return (
     <div
-      className="gallery-item cursor-pointer overflow-hidden rounded-xl shadow-md"
+      className="cursor-pointer overflow-hidden rounded-xl shadow-md"
       style={{ boxShadow: `0px 0px 50px ${item.shadow}10` }}
       key={num}
       onClick={() => {
         handleSelect(item.id, "/");
+        window.scrollTo(0, 0);
       }}
-      data-aos="fade-up"
-      data-aos-delay={200 + num * 100}
+      data-aos="zoom-in"
+      data-aos-delay={300 + num * 100}
     >
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          handleDelete(e);
-        }}
-        className="
-      absolute top-2 right-2 bg-white p-2 rounded-full cursor-pointer
+      <div className="absolute top-2 right-2 flex flex-col gap-1">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDelete(e);
+          }}
+          className="
+      w-7 h-7 bg-black/30 p-2 rounded-full cursor-pointer flex justify-center items-center text-white/90 hover:bg-black/90 transition shadow-xl shadow-white/50
       "
-      >
-        delete
-      </button>
+        >
+          <i className="fi fi-rr-trash text-sm mt-1"></i>
+        </button>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDelete(e);
+          }}
+          className="
+      w-7 h-7 bg-black/40 p-2 rounded-full cursor-pointer flex justify-center items-center text-white/90 hover:bg-black/90 transition shadow-xl shadow-white/50
+      "
+        >
+          <i className="fi fi-rr-info text-sm mt-1"></i>
+        </button>
+      </div>
       <img
         src={url}
         alt={item.name}

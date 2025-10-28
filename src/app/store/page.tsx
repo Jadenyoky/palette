@@ -5,6 +5,7 @@ import ColorThief from "colorthief";
 import { useRouter } from "next/navigation";
 import _ from "lodash";
 import Gallery from "../components/gallery";
+import Aos from "aos";
 
 const Page = () => {
   const [items, setitems] = useState<any>([]);
@@ -41,6 +42,8 @@ const Page = () => {
     sessionStorage.setItem("currentItem", id);
     router.push(location);
   };
+
+
 
   if (!loading)
     return (
