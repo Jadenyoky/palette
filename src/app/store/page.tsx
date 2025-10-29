@@ -12,6 +12,7 @@ const Page = () => {
   const [loading, setloading] = useState<boolean>(false);
   const [alert, setalert] = useState<boolean>(false);
   const handleGetItems = async () => {
+    setloading(false);
     const items: ItemTypes[] = await getAllItems("items_store");
     console.log(items);
 
@@ -111,6 +112,7 @@ const Page = () => {
               item={item}
               setitems={setitems}
               setloading={setloading}
+              handleGetItems={handleGetItems}
             />
           );
         })}

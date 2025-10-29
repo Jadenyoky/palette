@@ -9,12 +9,14 @@ const Gallery = ({
   handleSelect,
   setloading,
   setitems,
+  handleGetItems,
 }: {
   item: ItemTypes;
   num: number;
   handleSelect: any;
   setloading: any;
   setitems: any;
+  handleGetItems: any;
 }) => {
   const url: any = URL.createObjectURL(item.blob);
 
@@ -30,6 +32,7 @@ const Gallery = ({
     await deleteItem("items_store", item.id);
 
     setitems((prev: any) => prev.filter((i: any) => i.id !== item.id));
+    handleGetItems();
   };
 
   const handleInfo = () => {
@@ -97,11 +100,11 @@ const Gallery = ({
           <div
             className=" absolute rounded-2xl max-md:rounded-[24px_24px_0px_0px] flex flex-col gap-8 p-8 bg-white max-md:w-full text-orange-500 font-[maven_pro]"
             style={{
-              boxShadow: `0px 0px 50px ${item.shadow}90`,
+              boxShadow: `inset 0px 0px 50px ${item.shadow}90`,
             }}
             data-aos="slide-up"
           >
-            <div className="flex items-center flex-wrap gap-8 max-md:justify-">
+            <div className="flex items-start flex-wrap gap-8 max-md:justify-">
               <div
                 className="w-28 h-28 rounded-xl overflow-hidden flex justify-center items-center"
                 data-aos="zoom-out"
