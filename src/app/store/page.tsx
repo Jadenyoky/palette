@@ -10,6 +10,7 @@ import StackGrid from "react-stack-grid";
 const Page = () => {
   const [items, setitems] = useState<any>([]);
   const [loading, setloading] = useState<boolean>(false);
+  const [alert, setalert] = useState<boolean>(false);
   const handleGetItems = async () => {
     const items: ItemTypes[] = await getAllItems("items_store");
     console.log(items);
@@ -25,7 +26,7 @@ const Page = () => {
     return () => {};
   }, []);
 
-  const handleRemoveAll = () => {
+  const handleClearAll = () => {
     clearAllItems("items_store");
     const current = sessionStorage.getItem("currentItem");
 
@@ -35,6 +36,10 @@ const Page = () => {
 
     setloading(false);
     handleGetItems();
+  };
+
+  const handleAlert = () => {
+    setalert((prev: any) => !prev);
   };
 
   const router = useRouter();
@@ -87,7 +92,7 @@ const Page = () => {
           className="flex justify-center items-center pr-4 capitalize cursor-pointer rounded-full text-red-500/50 hover:text-red-500 hover:bg-red-500/10 transition"
           data-aos="zoom-in"
           onClick={() => {
-            handleRemoveAll();
+            handleAlert();
           }}
         >
           <div className="h-10 w-10 rounded-full flex justify-center items-center">
@@ -110,6 +115,58 @@ const Page = () => {
           );
         })}
       </div>
+
+      {alert && (
+        <div
+          className="fixed top-0 left-0 h-full w-full z-20 backdrop-brightness-20 flex justify-center items-center max-md:items-end"
+          data-aos="fade-in"
+        >
+          <div
+            className="absolute top-0 w-full h-full"
+            onClick={() => {
+              handleAlert();
+            }}
+          ></div>
+          <div
+            className=" absolute rounded-2xl max-md:rounded-[24px_24px_0px_0px] flex flex-col gap-8 p-8 bg-white max-md:w-full text-red-500/50 font-[maven_pro]"
+            style={{
+              boxShadow: `0px 0px 50px black`,
+            }}
+            data-aos="slide-up"
+          >
+            <div
+              className="flex gap-4 items-center font-bold"
+              data-aos="fade-in"
+              data-aos-delay="200"
+            >
+              <i className="fi fi-rr-info mt-1.5 text-xl"></i>
+              <p>Are you sure you want to clear all items ?</p>
+            </div>
+            <div className="flex gap-4 items-center *:flex-1 *:capitalize font-[asap]">
+              <button
+                type="button"
+                onClick={handleAlert}
+                className="px-4 py-3 rounded-xl text-white bg-green-700 hover:bg-green-600 transition cursor-pointer"
+                data-aos="zoom-in"
+                data-aos-delay="300"
+              >
+                cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  handleClearAll();
+                }}
+                className="px-4 py-3 rounded-xl text-white bg-red-700 hover:bg-red-600 transition cursor-pointer"
+                data-aos="zoom-in"
+                data-aos-delay="400"
+              >
+                clear
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

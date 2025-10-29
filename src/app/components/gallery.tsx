@@ -79,44 +79,73 @@ const Gallery = ({
         <img
           src={url}
           alt={item.name}
-          className=" w-full object-cover pointer-events-none rounded-xl"
+          className=" w-full object-cover pointer-events-none rounded-xl "
         />
       </div>
 
       {info && (
         <div
-          className="fixed top-0 left-0 h-full w-full border z-20 backdrop-brightness-20 flex justify-center items-center"
+          className="fixed top-0 left-0 h-full w-full z-20 backdrop-brightness-20 flex justify-center items-center max-md:items-end"
           data-aos="fade-in"
         >
           <div
-            className="absolute top-0 border-2 w-full h-full"
+            className="absolute top-0 w-full h-full"
             onClick={() => {
               handleInfo();
             }}
-          >
-            sd
-          </div>
+          ></div>
           <div
-            className=" absolute rounded-[24px_24px_0px_0px] flex flex-col gap-2 p-4 px-8 bg-amber-500 w-[500px] max-md:w-full"
+            className=" absolute rounded-2xl max-md:rounded-[24px_24px_0px_0px] flex flex-col gap-8 p-8 bg-white max-md:w-full text-orange-500 font-[maven_pro]"
             style={{
               boxShadow: `0px 0px 50px ${item.shadow}90`,
             }}
-            // data-aos="zoom-out"
-            // data-aos-delay="300"
+            data-aos="slide-up"
           >
-            <p className="invert-100">{item.name}</p>
-            <p className="invert-100">{item.createdAt}</p>
-            {
-              <div className="flex gap-2">
+            <div className="flex items-center flex-wrap gap-8 max-md:justify-">
+              <div
+                className="w-28 h-28 rounded-xl overflow-hidden flex justify-center items-center"
+                data-aos="zoom-out"
+                data-aos-delay="300"
+              >
+                <img
+                  src={url}
+                  alt={item.name}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <div className="flex flex-col gap-4">
+                <p className="" data-aos="fade-in" data-aos-delay="400">
+                  {item.name}
+                </p>
+                <p
+                  className="text-sm opacity-50"
+                  data-aos="fade-in"
+                  data-aos-delay="500"
+                >
+                  {item.createdAt}
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-4 justify-end">
+              <div
+                className="flex justify-center items-center text-black/40"
+                data-aos="zoom-in"
+                data-aos-delay="550"
+              >
+                <i className="fi fi-rr-palette text-2xl mt-1.5"></i>
+              </div>
+              <div className="flex flex-wrap justify-center items-center gap-2">
                 {item.palette.map((color: any, index: number) => (
                   <div
                     key={index}
                     className="w-6 h-6 rounded-full"
                     style={{ backgroundColor: `rgb(${color})` }}
+                    data-aos="fade-in"
+                    data-aos-delay={500 + index * 100}
                   ></div>
                 ))}
               </div>
-            }
+            </div>
           </div>
         </div>
       )}
