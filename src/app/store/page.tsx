@@ -19,7 +19,13 @@ const Page = () => {
     const order = _.orderBy(items, ["createdAt"], ["desc"]);
 
     setitems(order);
-    setloading(true);
+
+    const random = Math.floor(Math.random() * 5);
+    console.log(random);
+
+    setTimeout(() => {
+      setloading(true);
+    }, random * 5000);
   };
 
   useEffect(() => {
