@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import _ from "lodash";
 import Gallery from "../components/gallery";
 import Aos from "aos";
-
+import StackGrid from "react-stack-grid";
 const Page = () => {
   const [items, setitems] = useState<any>([]);
   const [loading, setloading] = useState<boolean>(false);
@@ -43,8 +43,6 @@ const Page = () => {
     router.push(location);
   };
 
-
-
   if (!loading)
     return (
       <div className="flex-1 flex justify-center items-center">
@@ -70,14 +68,14 @@ const Page = () => {
     );
   return (
     <div className="flex-1 flex flex-col items-center">
-      <div className="w-full p-4 sticky top-0 z-10 bg-white backdrop-blur-2xl flex justify-between items-center shadow-md shadow-amber-500/10 rounded-2xl ">
+      <div className="w-full px-4 pl-6 py-2 sticky top-0 z-10 bg-white backdrop-blur-2xl flex justify-between items-center shadow-md shadow-amber-500/10 rounded-2xl ">
         <div
           className="flex items-center gap-2 text-cyan-500 font-[asap] capitalize"
           data-aos="zoom-in"
         >
-          <p>total</p>
+          {/* <p>total</p> */}
           <div
-            className="bg-amber-500/10 text-green-500 font-[maven_pro] flex justify-center items-center w-10 h-10 rounded-full "
+            className=" text-green-500 font-[maven_pro] flex justify-center items-center w-10 h-10 rounded-full border-2 border-green-500/20"
             data-aos="fade-in"
             data-aos-delay="100"
           >
@@ -95,10 +93,10 @@ const Page = () => {
           <div className="h-10 w-10 rounded-full flex justify-center items-center">
             <i className="fi fi-rr-trash mt-1 text-lg"></i>
           </div>
-          <p>remove all</p>
+          <p>clear all</p>
         </button>
       </div>
-      <div className="columns-4 max-md:columns-4 max-sm:columns-3 space-y-4 p-4">
+      <div className="columns-4 max-md:columns-4 max-sm:columns-3 space-y-4 p-4 ">
         {items.map((item: ItemTypes, i: number) => {
           return (
             <Gallery

@@ -87,3 +87,58 @@ button {
     clip-path: circle(15px at left 4px top 4px)
   }
 }
+
+
+/* ====== Masonry Grid Style ====== */
+.my-masonry-grid {
+  display: -webkit-box;
+  /* Old Safari */
+  display: -ms-flexbox;
+  /* Old IE */
+  display: flex;
+  margin-left: -16px;
+  /* gutter size offset */
+  width: auto;
+}
+
+.my-masonry-grid_column {
+  padding-left: 16px;
+  /* gutter size */
+  background-clip: padding-box;
+}
+
+/* الصور اللي جوة */
+.my-masonry-grid_column>div {
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.my-masonry-grid_column>div:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* ====== Animation for hover delete btn ====== */
+.my-masonry-grid_column button {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.my-masonry-grid_column div:hover button {
+  opacity: 1;
+}
+
+/* ====== Optional: smooth image scale ====== */
+.my-masonry-grid_column img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.my-masonry-grid_column div:hover img {
+  transform: scale(1.05);
+}

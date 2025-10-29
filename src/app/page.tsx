@@ -169,18 +169,6 @@ const Page = () => {
           {imageLoaded && (
             <div className="flex gap-4">
               <div
-                key={addedToFav ? "fav" : "unfav"}
-                className="border border-cyan-500/20 text-cyan-500/50 flex justify-center items-center w-10 h-10 rounded-full hover:bg-cyan-100 transition cursor-pointer"
-                onClick={handleFav}
-                data-aos="fade-in"
-              >
-                {addedToFav ? (
-                  <i className="fi fi-sr-heart mt-1" data-aos="zoom-in"></i>
-                ) : (
-                  <i className="fi fi-rr-heart mt-1" data-aos="zoom-out"></i>
-                )}
-              </div>
-              <div
                 className="border border-red-500/20 text-red-500/50 flex justify-center items-center w-10 h-10 rounded-full hover:bg-red-100 transition cursor-pointer"
                 onClick={handleDelete}
                 data-aos="fade-in"

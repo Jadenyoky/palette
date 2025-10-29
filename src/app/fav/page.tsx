@@ -42,10 +42,11 @@ const Page = () => {
       </div>
     );
   return (
-    <div className="flex-1 gap-4 flex flex-col justify-between items-center">
+    <div className="columns-4 max-md:columns-4 max-sm:columns-3 space-y-4 p-4">
       {items.map((color: ColorTypes, i: number) => {
         return (
           <div
+            data-aos="flip-left"
             key={i}
             className={`h-20 w-20 `}
             style={{
