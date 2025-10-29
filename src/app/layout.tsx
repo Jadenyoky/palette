@@ -42,13 +42,6 @@ export default function RootLayout({
     handleTitle();
   }, [pathname, router]);
 
-  useEffect(() => {
-    Aos.init({
-      offset: 0,
-      once: false,
-    });
-  }, []);
-
   return (
     <html lang="en">
       <head>

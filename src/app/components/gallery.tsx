@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { deleteItem, ItemTypes } from "../db";
 import sal from "sal.js";
+import moment from "moment";
 
 const Gallery = ({
   item,
@@ -64,6 +65,8 @@ const Gallery = ({
             className="
       w-7 h-7 bg-red-500/50 p-2 rounded-[24px_20px_24px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-red-500/80 transition backdrop-brightness-50
       "
+            data-sal="fade-in"
+            data-sal-delay={500 + num * 100}
           >
             <i className="fi fi-rr-trash text-sm mt-1"></i>
           </button>
@@ -75,6 +78,8 @@ const Gallery = ({
             className="
       w-7 h-7 bg-cyan-500/50 p-2 rounded-[24px_24px_20px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-cyan-500/80 transition backdrop-brightness-50
       "
+            data-sal="fade-in"
+            data-sal-delay={500 + num * 100}
           >
             <i className="fi fi-rr-info text-sm mt-1"></i>
           </button>
@@ -121,11 +126,11 @@ const Gallery = ({
                   {item.name}
                 </p>
                 <p
-                  className="text-sm opacity-50"
+                  className="text-sm text-orange-500/50"
                   data-aos="fade-in"
                   data-aos-delay="500"
                 >
-                  {item.createdAt}
+                  {moment(item.createdAt).fromNow()}
                 </p>
               </div>
             </div>
