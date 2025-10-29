@@ -85,13 +85,39 @@ const Gallery = ({
 
       {info && (
         <div
-          className="fixed top-0 left-0 h-full w-full border z-20 backdrop-brightness-20"
-          onClick={handleInfo}
+          className="fixed top-0 left-0 h-full w-full border z-20 backdrop-brightness-20 flex justify-center items-center"
           data-aos="fade-in"
         >
-          <img src={url} alt={item.name} className=" w-20 rounded-sm" />
-          {item.name}
-          <p className="text-sm">{item.createdAt}</p>
+          <div
+            className="absolute top-0 border-2 w-full h-full"
+            onClick={() => {
+              handleInfo();
+            }}
+          >
+            sd
+          </div>
+          <div
+            className=" absolute rounded-[24px_24px_0px_0px] flex flex-col gap-2 p-4 px-8 bg-amber-500 w-[500px] max-md:w-full"
+            style={{
+              boxShadow: `0px 0px 50px ${item.shadow}90`,
+            }}
+            // data-aos="zoom-out"
+            // data-aos-delay="300"
+          >
+            <p className="invert-100">{item.name}</p>
+            <p className="invert-100">{item.createdAt}</p>
+            {
+              <div className="flex gap-2">
+                {item.palette.map((color: any, index: number) => (
+                  <div
+                    key={index}
+                    className="w-6 h-6 rounded-full"
+                    style={{ backgroundColor: `rgb(${color})` }}
+                  ></div>
+                ))}
+              </div>
+            }
+          </div>
         </div>
       )}
     </div>

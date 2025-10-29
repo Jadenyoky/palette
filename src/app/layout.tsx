@@ -9,7 +9,6 @@ import Aos from "aos";
 import { usePathname, useRouter } from "next/navigation";
 import "sal.js/dist/sal.css";
 
-
 // export const metadata: Metadata = {
 //   title: {
 //     default: "Palette",
@@ -41,13 +40,11 @@ export default function RootLayout({
 
   useEffect(() => {
     handleTitle();
-    window.scrollTo(0, 0);
   }, [pathname, router]);
 
   useEffect(() => {
     Aos.init({
       offset: 0,
-      easing: "ease-in-out",
       once: false,
     });
   }, []);
