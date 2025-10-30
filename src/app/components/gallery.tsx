@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { deleteItem, ItemTypes } from "../db";
 import sal from "sal.js";
 import moment from "moment";
-import ImageLoader from "./imageLoader";
+import ImageLoader from "./itemLoader";
+import Info from "./info";
 
 const Gallery = ({
   item,
@@ -98,72 +99,7 @@ const Gallery = ({
         />
       </div>
 
-      {info && (
-        <div
-          className="fixed top-0 left-0 h-full w-full z-30 backdrop-brightness-20 flex justify-center items-center max-md:items-end"
-          data-aos="fade-in"
-        >
-          <div
-            className="absolute top-0 w-full h-full"
-            onClick={() => {
-              handleInfo();
-            }}
-          ></div>
-          <div
-            className=" absolute rounded-2xl max-md:rounded-[24px_24px_0px_0px] flex flex-col gap-8 p-8 bg-white max-md:w-full text-orange-500 font-[maven_pro]"
-            style={{
-              boxShadow: ` 0px 0px 50px ${item.shadow}90`,
-            }}
-            data-aos="slide-up"
-          >
-            <div className="flex items-start flex-wrap gap-8 max-md:justify-">
-              <div
-                className="w-28 h-28 rounded-xl overflow-hidden flex justify-center items-center"
-                data-aos="zoom-out"
-                data-aos-delay="300"
-              >
-                <img
-                  src={url}
-                  alt={item.name}
-                  className="object-cover w-full h-full"
-                />
-              </div>
-              <div className="flex flex-col gap-4">
-                <p className="" data-aos="fade-in" data-aos-delay="400">
-                  {item.name}
-                </p>
-                <p
-                  className="text-sm text-orange-500/50"
-                  data-aos="fade-in"
-                  data-aos-delay="500"
-                >
-                  {moment(item.createdAt).fromNow()}
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-4 justify-end">
-              <div
-                className="flex justify-center items-center text-black/40"
-                data-aos="zoom-in"
-                data-aos-delay="550"
-              >
-                <i className="fi fi-rr-palette text-2xl mt-1.5"></i>
-              </div>
-              <div className="flex flex-wrap justify-center items-center gap-2">
-                {item.palette.map((color: any, index: number) => (
-                  <div
-                    key={index}
-                    className="w-6 h-6 rounded-full"
-                    style={{ backgroundColor: `rgb(${color})` }}
-                    data-aos="fade-in"
-                    data-aos-delay={500 + index * 100}
-                  ></div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {info && <Info item={item} num={num} url={url} handleInfo={handleInfo} />}
     </div>
   );
 };

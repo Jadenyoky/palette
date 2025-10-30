@@ -89,11 +89,11 @@ const GalleryItem = ({
           loading="lazy"
           className={`w-full h-auto transition-opacity ${
             loaded ? "opacity-100" : "opacity-0"
-          }`}
+          } `}
           onLoad={() => {
             setTimeout(() => {
               setLoaded(true);
-            }, 10000);
+            }, delay);
           }}
         />
       </picture>
