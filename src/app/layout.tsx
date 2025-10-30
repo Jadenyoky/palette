@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import Aos from "aos";
 import { usePathname, useRouter } from "next/navigation";
 import "sal.js/dist/sal.css";
+import sal from "sal.js";
 
 // export const metadata: Metadata = {
 //   title: {
@@ -41,6 +42,17 @@ export default function RootLayout({
   useEffect(() => {
     handleTitle();
   }, [pathname, router]);
+
+  useEffect(() => {
+    Aos.init({
+      offset: 0,
+      once: false,
+    });
+  }, []);
+
+  useEffect(() => {
+    sal();
+  }, []);
 
   return (
     <html lang="en">

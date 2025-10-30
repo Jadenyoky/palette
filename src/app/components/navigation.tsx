@@ -2,6 +2,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Aos from "aos";
+import sal from "sal.js";
 
 const Top = () => {
   const pathname = usePathname();
@@ -33,15 +34,20 @@ const Top = () => {
   ];
 
   useEffect(() => {
-    Aos.init({
-      offset: 0,
+    sal({
+      root: document.querySelector(".bottomNav"),
       once: false,
+      threshold: 0,
     });
-  }, []);
+  }, [pathname, router]);
 
   return (
-    <div className="sticky bottom-0 mx-auto max-md:mx-0" data-aos="fade-in">
-      <div className="relative p-2 gap-4 rounded-full w-[600px] max-md:w-full mb-4 max-md:mb-0 max-md:rounded-[24px_24px_0px_0px] flex justify-between items-center  text-black *:flex-1 *:text-center overflow-hidden border border-black/10 bg-white/90 backdrop-blur-md max-md:shadow-[0px_-30px_30px] shadow-[-10px_30px_30px] shadow-white/90">
+    <div
+      className="bottomNav sticky bottom-0 mx-auto max-md:mx-0"
+      // data-aos="fade-in"
+      data-sal="fade"
+    >
+      <div className="relative p-2 gap-4 rounded-full w-[600px] max-md:w-full mb-4 max-md:mb-0 max-md:rounded-[24px_24px_0px_0px] flex justify-between items-center  text-black *:flex-1 *:text-center overflow-hidden border border-black/10 bg-white/90 backdrop-blur-md max-md:shadow-[0px_-20px_20px] shadow-[-10px_30px_30px] shadow-white/50">
         {links.map((link, i) => {
           const isActive = link.location === pathname;
           return (
@@ -63,13 +69,15 @@ const Top = () => {
                 className={`${
                   isActive ? link.acitve : link.icon
                 } text-lg mt-1 ${isActive ? "" : ""} `}
-                data-aos="fade-in"
+                // data-aos="fade-in"
+                data-sal="zoom-in"
               />
               <p
                 className={`max-md:text-sm font-semibold capitalize ${
                   isActive ? "" : "hidden"
                 }`}
-                data-aos="zoom-in"
+                // data-aos="zoom-in"
+                data-sal="zoom-in"
               >
                 {link.name}
               </p>

@@ -25,7 +25,7 @@ const Page = () => {
 
     setTimeout(() => {
       setloading(true);
-    }, random * 5000);
+    }, random * 400);
   };
 
   useEffect(() => {
