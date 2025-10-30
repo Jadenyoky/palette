@@ -88,13 +88,25 @@ button {
   }
 } */
 
-/* HTML: <div class="loader"></div> */
+
+
+/* HTML: <div class="loader"></div> 
+
+#ffa516 green coral
+*/
+
+:root {
+  --color1: #ffa516;
+  --color2: green;
+  --color3: coral;
+}
+
 .loader {
   width: 70px;
   aspect-ratio: 1;
   background:
-    radial-gradient(farthest-side, #ffa516 90%, #0000) center/16px 16px,
-    radial-gradient(farthest-side, green 90%, #0000) bottom/12px 12px;
+    radial-gradient(farthest-side, var(--color1) 90%, #0000) center/16px 16px,
+    radial-gradient(farthest-side, var(--color2) 90%, #0000) bottom/12px 12px;
   background-repeat: no-repeat;
   animation: l17 1s infinite linear;
   position: relative;
@@ -107,7 +119,7 @@ button {
   aspect-ratio: 1;
   inset: auto 0 16px;
   margin: auto;
-  background: coral;
+  background: var(--color3);
   border-radius: 50%;
   transform-origin: 50% calc(100% + 10px);
   animation: inherit;

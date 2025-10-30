@@ -90,7 +90,12 @@ const Gallery = ({
           alt={item.name}
           className=" w-full object-cover pointer-events-none rounded-xl "
         /> */}
-        <ImageLoader src={url} alt={item.name} delay={500 + num * 100} />
+        <ImageLoader
+          src={url}
+          alt={item.name}
+          delay={500 + num * 100}
+          palette={item.palette}
+        />
       </div>
 
       {info && (
