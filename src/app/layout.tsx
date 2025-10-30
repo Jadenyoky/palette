@@ -70,7 +70,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-svh flex flex-col justify-between gap-8">
-        <main className="flex flex-col justify-between rounded-xl w-[600px] max-md:w-full mx-auto flex-1">
+        <main className="flex flex-col justify-between rounded-xl w-[600px] max-md:w-full mx-auto flex-1 mb-[70px]">
           {children}
         </main>
         <Navigation />

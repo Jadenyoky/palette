@@ -43,11 +43,13 @@ const Top = () => {
 
   return (
     <div
-      className="bottomNav sticky bottom-0 mx-auto max-md:mx-0"
+      className="bottomNav fixed w-full max-h-[70px] bottom-0 flex justify-center items-center  mx-auto max-md:mx-0
+      
+      "
       // data-aos="fade-in"
       data-sal="fade"
     >
-      <div className="relative p-2 gap-4 rounded-full w-[600px] max-md:w-full mb-4 max-md:mb-0 max-md:rounded-[24px_24px_0px_0px] flex justify-between items-center  text-black *:flex-1 *:text-center overflow-hidden border border-black/10 bg-white/90 backdrop-blur-md max-md:shadow-[0px_-20px_20px] shadow-[-10px_30px_30px] shadow-white/50">
+      <div className="relative p-2 gap-4 rounded-full w-[600px] max-md:w-full mb-4 max-md:mb-0 max-md:rounded-[24px_24px_0px_0px] flex justify-between items-center  text-black *:flex-1 *:text-center overflow-hidden border border-black/10 bg-white max-md:shadow-[0px_-20px_20px] shadow-[-10px_30px_30px] shadow-white/50">
         {links.map((link, i) => {
           const isActive = link.location === pathname;
           return (
