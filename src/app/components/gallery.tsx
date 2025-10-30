@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { deleteItem, ItemTypes } from "../db";
 import sal from "sal.js";
 import moment from "moment";
+import ImageLoader from "./imageLoader";
 
 const Gallery = ({
   item,
@@ -56,7 +57,7 @@ const Gallery = ({
         data-sal="zoom-in"
         data-sal-delay={300 + num * 100}
       >
-        <div className="absolute top-0 right-0 flex flex-col justify-between h-full gap-1 ">
+        <div className="absolute top-0 right-0 flex flex-col justify-between h-full gap-1 z-20">
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -84,16 +85,17 @@ const Gallery = ({
             <i className="fi fi-rr-info text-sm mt-1"></i>
           </button>
         </div>
-        <img
+        {/* <img
           src={url}
           alt={item.name}
           className=" w-full object-cover pointer-events-none rounded-xl "
-        />
+        /> */}
+        <ImageLoader src={url} alt={item.name} delay={500 + num * 100} />
       </div>
 
       {info && (
         <div
-          className="fixed top-0 left-0 h-full w-full z-20 backdrop-brightness-20 flex justify-center items-center max-md:items-end"
+          className="fixed top-0 left-0 h-full w-full z-30 backdrop-brightness-20 flex justify-center items-center max-md:items-end"
           data-aos="fade-in"
         >
           <div
@@ -105,7 +107,7 @@ const Gallery = ({
           <div
             className=" absolute rounded-2xl max-md:rounded-[24px_24px_0px_0px] flex flex-col gap-8 p-8 bg-white max-md:w-full text-orange-500 font-[maven_pro]"
             style={{
-              boxShadow: `inset 0px 0px 50px ${item.shadow}90`,
+              boxShadow: ` 0px 0px 50px ${item.shadow}90`,
             }}
             data-aos="slide-up"
           >

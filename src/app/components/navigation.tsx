@@ -43,7 +43,7 @@ const Top = () => {
 
   return (
     <div
-      className="bottomNav fixed w-full max-h-[70px] bottom-0 flex justify-center items-center  mx-auto max-md:mx-0
+      className="bottomNav fixed w-full max-h-[70px] bottom-0 flex justify-center items-center mx-auto max-md:mx-0 z-29
       
       "
       // data-aos="fade-in"
