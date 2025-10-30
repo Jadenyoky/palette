@@ -31,7 +31,7 @@ const Info = ({ item, num, url, handleInfo }: infoTypes) => {
       >
         <div className="flex items-start flex-wrap gap-8">
           <div
-            className="max-w-28 max-h-28 rounded-xl flex justify-center items-start"
+            className="max-w-28 max-h-28 rounded-xl overflow-hidden flex justify-center items-start"
             data-aos="zoom-out"
             data-aos-delay="300"
           >
@@ -60,7 +60,7 @@ const Info = ({ item, num, url, handleInfo }: infoTypes) => {
             </p>
           </div>
         </div>
-        <div className="flex gap-4 justify-end">
+        <div className="flex gap-4 justify-end bg-white">
           <div
             className="flex justify-center items-center text-black/40"
             data-aos="zoom-in"
