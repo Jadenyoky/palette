@@ -127,7 +127,7 @@ const Page = () => {
       <div className="w-full p-4">
         <Masonry
           items={items}
-          columnGutter={8}
+          columnGutter={16}
           columnWidth={150}
           overscanBy={5}
           render={({ index, data }: any) => {
