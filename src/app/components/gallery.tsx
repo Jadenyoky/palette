@@ -43,11 +43,14 @@ const Gallery = ({
   };
 
   useEffect(() => {
-    sal();
+    sal({
+      root: document.querySelector(".galleryItem"),
+      once: true,
+    });
   }, []);
 
   return (
-    <div>
+    <div className="galleryItem">
       <div
         className="relative flex justify-center items-center cursor-pointer rounded-xl shadow-md"
         style={{ boxShadow: `0px 0px 50px ${item.shadow}10` }}

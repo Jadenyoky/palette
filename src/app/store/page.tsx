@@ -7,6 +7,7 @@ import _ from "lodash";
 import Gallery from "../components/gallery";
 import Aos from "aos";
 import StackGrid from "react-stack-grid";
+import { Masonry } from "masonic";
 const Page = () => {
   const [items, setitems] = useState<any>([]);
   const [loading, setloading] = useState<boolean>(false);
@@ -108,7 +109,7 @@ const Page = () => {
           <p>clear all</p>
         </button>
       </div>
-      <div className="columns-4 max-md:columns-4 max-sm:columns-3 space-y-4 p-4 ">
+      {/* <div className="columns-4 max-md:columns-4 max-sm:columns-3 space-y-4 p-4 ">
         {items.map((item: ItemTypes, i: number) => {
           return (
             <Gallery
@@ -122,6 +123,29 @@ const Page = () => {
             />
           );
         })}
+      </div> */}
+      <div className="w-full p-4">
+        <Masonry
+          items={items}
+          columnGutter={8}
+          columnWidth={150}
+          overscanBy={5}
+          render={({ index, data }: any) => {
+            console.log(index);
+
+            return (
+              <Gallery
+                key={index}
+                num={index}
+                item={data}
+                handleSelect={handleSelect}
+                setitems={setitems}
+                setloading={setloading}
+                handleGetItems={handleGetItems}
+              />
+            );
+          }}
+        />
       </div>
 
       {alert && (
