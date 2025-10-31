@@ -8,7 +8,7 @@ const Page = () => {
 
   const handleGetItems = async () => {
     const items = await getAllItems("fav_store");
-    console.log(items);
+    // console.log(items);
     setitems(items);
     setloading(true);
   };

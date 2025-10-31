@@ -36,7 +36,7 @@ const GalleryItem = ({
       })
       .join("")}`;
 
-    console.log(hex);
+    // console.log(hex);
     return hex;
   };
 

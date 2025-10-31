@@ -24,7 +24,7 @@ const Shapes = () => {
     const random = _.sampleSize(unique, 25);
 
     setcolors(random);
-    console.log(random);
+    // console.log(random);
 
     if (positionsRef.current.length === 0) {
       positionsRef.current = filter.map(() => ({
@@ -33,7 +33,7 @@ const Shapes = () => {
         width: `${4}px`,
         height: `${4}px`,
         delay: `${Math.random() * 10}s`,
-        anim: animations[Math.floor(Math.random() * animations.length)], // حركة عشوائية
+        anim: animations[Math.floor(Math.random() * animations.length)],
       }));
     }
   };
@@ -44,6 +44,15 @@ const Shapes = () => {
 
   return (
     <div className="fixed w-full h-full pointer-events-none overflow-hidden">
+      <div
+        className={`fixed h-full w-full opacity-10`}
+        style={{
+          backgroundImage: `url(cover.svg)`,
+          backgroundSize: "cover",
+          backgroundPosition: "bottom",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
       {colors.map((item: any, i: number) => {
         const pos = positionsRef.current[i];
         return (

@@ -27,13 +27,13 @@ const Page = () => {
     setImageLoaded(false);
     setloading(false);
     const url = URL.createObjectURL(file);
-    console.log(url);
+    // console.log(url);
     seturlImage(url);
 
     const img = new Image();
     img.crossOrigin = "Anonymous";
     img.src = url;
-    console.log(img, img.src);
+    // console.log(img, img.src);
 
     img.onload = async () => {
       handleExtract(img, file);
@@ -43,13 +43,13 @@ const Page = () => {
   const handleExtract = async (img: HTMLImageElement, file: any) => {
     const extract = new ColorThief();
     const color: ColorThief.RGBColor[] = extract.getPalette(img, 5);
-    console.log(color);
+    // console.log(color);
     setcolors(color as []);
 
     const num = Math.floor(Math.random() * color.length);
     setrandomColorId(num);
 
-    console.log(file);
+    // console.log(file);
 
     const item: ItemTypes = {
       id: v4(),
@@ -60,7 +60,7 @@ const Page = () => {
       shadow: convertToHex(color[num][0], color[num][1], color[num][2]),
     };
     await addItem("items_store", item);
-    console.log("Image added to IndexedDB");
+    // console.log("Image added to IndexedDB");
 
     sessionStorage.setItem("currentItem", item.id as any);
 
@@ -87,7 +87,7 @@ const Page = () => {
     }
 
     const item = await getItem("items_store", storedId);
-    console.log(item);
+    // console.log(item);
 
     const url = URL.createObjectURL(item.blob);
     seturlImage(url);
@@ -115,7 +115,7 @@ const Page = () => {
       })
       .join("")}`;
 
-    console.log(hex);
+    // console.log(hex);
     return hex;
   };
 
@@ -213,7 +213,7 @@ const Page = () => {
             const handleCopy = () => {
               const hex = convertToHex(color[0], color[1], color[2]);
               navigator.clipboard.writeText(hex);
-              console.log(hex, "copied", color, i);
+              // console.log(hex, "copied", color, i);
             };
 
             const handleFavs = async () => {

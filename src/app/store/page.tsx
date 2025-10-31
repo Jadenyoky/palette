@@ -14,14 +14,14 @@ const Page = () => {
   const handleGetItems = async () => {
     setloading(false);
     const items: ItemTypes[] = await getAllItems("items_store");
-    console.log(items);
+    // console.log(items);
 
     const order = _.orderBy(items, ["createdAt"], ["desc"]);
 
     setitems(order);
 
     const random = Math.floor(Math.random() * 5);
-    console.log(random);
+    // console.log(random);
 
     setTimeout(() => {
       setloading(true);
