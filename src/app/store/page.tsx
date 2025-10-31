@@ -126,7 +126,7 @@ const Page = () => {
 
       {alert && (
         <div
-          className="fixed top-0 left-0 h-full w-full z-20 backdrop-brightness-20 flex justify-center items-center max-md:items-end"
+          className="fixed top-0 left-0 h-full w-full backdrop-brightness-20 flex justify-center items-center max-md:items-end z-30"
           data-aos="fade-in"
         >
           <div
@@ -136,27 +136,28 @@ const Page = () => {
             }}
           ></div>
           <div
-            className=" absolute rounded-2xl max-md:rounded-[24px_24px_0px_0px] flex flex-col gap-8 p-8 bg-white max-md:w-full text-red-500/50 font-[maven_pro]"
+            className=" absolute rounded-2xl max-md:rounded-[24px_24px_0px_0px] flex flex-col gap-8 p-8 bg-white max-md:w-full text-red-500/50 font-[maven_pro] font-semibold"
             style={{
               boxShadow: `0px 0px 50px black`,
             }}
             data-aos="slide-up"
+            data-aos-delay="200"
           >
             <div
-              className="flex gap-4 items-center font-bold"
+              className="flex gap-4 items-center"
               data-aos="fade-in"
-              data-aos-delay="200"
+              data-aos-delay="400"
             >
               <i className="fi fi-rr-info mt-1.5 text-xl"></i>
-              <p>Are you sure you want to clear all items ?</p>
+              <p>Are you sure to clear all items ?</p>
             </div>
-            <div className="flex gap-4 items-center *:flex-1 *:capitalize font-[asap]">
+            <div className="flex gap-4 items-center *:flex-1 *:capitalize">
               <button
                 type="button"
                 onClick={handleAlert}
                 className="px-4 py-3 rounded-xl text-white bg-green-700 hover:bg-green-600 transition cursor-pointer"
                 data-aos="zoom-in"
-                data-aos-delay="300"
+                data-aos-delay="500"
               >
                 cancel
               </button>
@@ -167,7 +168,7 @@ const Page = () => {
                 }}
                 className="px-4 py-3 rounded-xl text-white bg-red-700 hover:bg-red-600 transition cursor-pointer"
                 data-aos="zoom-in"
-                data-aos-delay="400"
+                data-aos-delay="600"
               >
                 clear
               </button>

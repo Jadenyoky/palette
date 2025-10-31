@@ -9,6 +9,7 @@ import Aos from "aos";
 import { usePathname, useRouter } from "next/navigation";
 import "sal.js/dist/sal.css";
 import sal from "sal.js";
+import Shapes from "./components/shapes";
 
 // export const metadata: Metadata = {
 //   title: {
@@ -70,6 +71,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-svh flex flex-col justify-between gap-8">
+        <Shapes />
         <main className="flex flex-col justify-between rounded-xl w-[600px] max-md:w-full mx-auto flex-1 mb-[70px]">
           {children}
         </main>
