@@ -43,11 +43,11 @@ const Shapes = () => {
   }, []);
 
   return (
-    <div className="fixed w-full h-full pointer-events-none overflow-hidden">
+    <div className="fixed w-full h-full pointer-events-none overflow-hidden z-[-1]">
       <div
-        className={`fixed h-full w-full opacity-10`}
+        className={`fixed h-full w-full opacity-5 z-[-1]`}
         style={{
-          backgroundImage: `url(cover.svg)`,
+          backgroundImage: `radial-gradient(rgba(255, 255, 255, 1), transparent),url(cover.svg)`,
           backgroundSize: "cover",
           backgroundPosition: "bottom",
           backgroundRepeat: "no-repeat",

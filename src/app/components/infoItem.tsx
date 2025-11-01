@@ -1,6 +1,6 @@
 "use client";
-import moment from "moment";
 import React from "react";
+import moment from "moment";
 import ItemLoader from "./itemLoader";
 
 interface infoTypes {
@@ -13,7 +13,7 @@ interface infoTypes {
 const Info = ({ item, num, url, handleInfo }: infoTypes) => {
   return (
     <div
-      className="fixed top-0 left-0 h-full w-full z-30 backdrop-brightness-20 flex justify-center items-center max-md:items-end"
+      className="fixed inset-0 top-0 left-0 h-full w-full z-30 backdrop-brightness-20 flex justify-center items-center max-md:items-end "
       data-aos="fade-in"
     >
       <div

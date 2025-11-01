@@ -1,15 +1,24 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getAllItems, ColorTypes } from "../db";
+import { getAllItems, ColorTypes, clearAllItems } from "../db";
+import Alert from "../components/alert";
+import _ from "lodash";
+import Info from "../components/infoColor";
+import ColorFav from "../components/colorFav";
+import { Masonry } from "masonic";
+import TopHeader from "../components/topHeader";
 
 const Page = () => {
   const [items, setitems] = useState<any>([]);
   const [loading, setloading] = useState<boolean>(false);
+  const [alert, setalert] = useState<boolean>(false);
+  const [info, setinfo] = useState<boolean>(false);
 
   const handleGetItems = async () => {
     const items = await getAllItems("fav_store");
-    // console.log(items);
-    setitems(items);
+    const order = _.orderBy(items, ["createdAt"], ["desc"]);
+    const uniq = _.uniqBy(order, "hex");
+    setitems(uniq);
     setloading(true);
   };
 
@@ -17,6 +26,17 @@ const Page = () => {
     handleGetItems();
     return () => {};
   }, []);
+
+  const handleClearAll = () => {
+    clearAllItems("fav_store");
+
+    setloading(false);
+    handleGetItems();
+  };
+
+  const handleAlert = () => {
+    setalert((prev: any) => !prev);
+  };
 
   if (!loading)
     return (
@@ -42,22 +62,36 @@ const Page = () => {
       </div>
     );
   return (
-    <div className="columns-4 max-md:columns-4 max-sm:columns-3 space-y-4 p-4">
-      {items.map((color: ColorTypes, i: number) => {
-        return (
-          <div
-            data-aos="flip-left"
-            key={i}
-            className={`h-20 w-20 `}
-            style={{
-              backgroundColor: `${color.hex}`,
-            }}
-          >
-            {color.hex}
-            {color.rgb}
-          </div>
-        );
-      })}
+    <div className="flex-1 flex flex-col items-center">
+      <TopHeader
+        items={items}
+        textButton="clear all"
+        handleAlert={handleAlert}
+      />
+      <div className="w-full p-4 flex items-center *:flex-1">
+        {/* {items.map((color: ColorTypes, i: number) => {
+          return <Fav key={i} color={color} num={i} />;
+        })} */}
+        <Masonry
+          items={items}
+          columnGutter={2}
+          // columnCount={5}
+          columnWidth={70}
+          overscanBy={items.length / 20}
+          render={({ index, data }: any) => {
+            return <ColorFav key={index} color={data} num={index} />;
+          }}
+        />
+      </div>
+      {alert && (
+        <Alert
+          handleAlert={handleAlert}
+          handleAction={handleClearAll}
+          text="Are you sure you want to clear all colors ?"
+          buttonOne="cancel"
+          buttonTwo="clear all"
+        />
+      )}
     </div>
   );
 };

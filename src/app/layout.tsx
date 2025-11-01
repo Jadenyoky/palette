@@ -51,9 +51,9 @@ export default function RootLayout({
     });
   }, []);
 
-  useEffect(() => {
-    sal();
-  }, []);
+  // useEffect(() => {
+  //   sal();
+  // }, []);
 
   return (
     <html lang="en">

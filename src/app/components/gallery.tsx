@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { deleteItem, ItemTypes } from "../db";
 import sal from "sal.js";
 import moment from "moment";
 import ImageLoader from "./itemLoader";
-import Info from "./info";
+import Info from "./infoItem";
 
 const Gallery = ({
   item,
@@ -42,24 +42,20 @@ const Gallery = ({
     setinfo((prev: any) => !prev);
   };
 
-  useEffect(() => {
-    sal({
-      root: document.querySelector(".galleryItem"),
-      once: true,
-    });
-  }, []);
-
   return (
-    <div className="galleryItem">
+    <div>
       <div
         className="relative flex justify-center items-center cursor-pointer rounded-xl shadow-md"
-        style={{ boxShadow: `0px 0px 50px ${item.shadow}10` }}
+        style={{
+          boxShadow: `0px 0px 50px ${item.shadow}10`,
+        }}
         key={num}
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           handleSelect(item.id, "/");
         }}
-        data-sal="zoom-in"
-        data-sal-delay={300 + num * 100}
+        // data-sal="zoom-in"
+        // data-sal-delay={300 + num * 100}
       >
         <div className="absolute top-0 right-0 flex flex-col justify-between h-full gap-1 z-20">
           <button
@@ -70,8 +66,8 @@ const Gallery = ({
             className="
       w-7 h-7 bg-red-500/50 p-2 rounded-[24px_20px_24px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-red-500/80 transition backdrop-brightness-50
       "
-            data-sal="fade-in"
-            data-sal-delay={500 + num * 100}
+            // data-sal="fade-in"
+            // data-sal-delay={500 + num * 100}
           >
             <i className="fi fi-rr-trash text-sm mt-1"></i>
           </button>
@@ -83,8 +79,8 @@ const Gallery = ({
             className="
       w-7 h-7 bg-cyan-500/50 p-2 rounded-[24px_24px_20px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-cyan-500/80 transition backdrop-brightness-50
       "
-            data-sal="fade-in"
-            data-sal-delay={500 + num * 100}
+            // data-sal="fade-in"
+            // data-sal-delay={500 + num * 100}
           >
             <i className="fi fi-rr-info text-sm mt-1"></i>
           </button>
@@ -107,4 +103,4 @@ const Gallery = ({
   );
 };
 
-export default Gallery;
+export default memo(Gallery);

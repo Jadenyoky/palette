@@ -120,3 +120,17 @@
 .pulse-fade {
   animation: pulse-fade 15s ease-in-out infinite;
 }
+
+@keyframes float-up2 {
+
+
+  0%,
+  50% {
+    scale: 0;
+  }
+
+}
+
+.float-up2 {
+  animation: float-up2 0.5s ease-in-out;
+}
