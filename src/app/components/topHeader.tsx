@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import sal from "sal.js";
 import AlertShad from "./alertShad";
 import { deleteItem } from "../db";
+import Counter from "./counterBits";
 
 const TopHeader = ({
   items,
@@ -73,10 +74,23 @@ const TopHeader = ({
           {items.length}
         </div>
       </div>
+
       {idList.length > 0 ? (
         <AlertShad
           handleAction={handleClearSelected}
-          title={`${idList.length}`}
+          title={
+            <Counter
+              value={idList.length}
+              fontSize={24}
+              places={
+                idList.length <= 9
+                  ? [1]
+                  : idList.length >= 10
+                  ? [10, 1]
+                  : [100, 10, 1]
+              }
+            />
+          }
           alertTitle={`Are you sure to clear ${idList.length} selected ${
             (store?.includes("fav") && "colors") ||
             (store?.includes("items") && "items")
