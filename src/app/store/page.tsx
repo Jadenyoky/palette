@@ -1,17 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { clearAllItems, getAllItems, ItemTypes } from "../db";
 import { usePathname, useRouter } from "next/navigation";
 import _ from "lodash";
 import Gallery from "../components/gallery";
 import { Masonry } from "masonic";
-import Alert from "../components/alert";
 import TopHeader from "../components/topHeader";
-import sal from "sal.js";
+
 const Page = () => {
   const [items, setitems] = useState<any>([]);
   const [loading, setloading] = useState<boolean>(false);
-  const [alert, setalert] = useState<boolean>(false);
   const handleGetItems = async () => {
     setloading(false);
     const items: ItemTypes[] = await getAllItems("items_store");
@@ -29,10 +27,6 @@ const Page = () => {
     }, random * 400);
   };
 
-  useEffect(() => {
-    handleGetItems();
-  }, []);
-
   const handleClearAll = () => {
     clearAllItems("items_store");
     const current = sessionStorage.getItem("currentItem");
@@ -45,15 +39,15 @@ const Page = () => {
     handleGetItems();
   };
 
-  const handleAlert = () => {
-    setalert(!alert);
-  };
-
   const router = useRouter();
   const handleSelect = (id: any, location: string) => {
     sessionStorage.setItem("currentItem", id);
     router.push(location);
   };
+
+  useEffect(() => {
+    handleGetItems();
+  }, []);
 
   if (!loading)
     return (
@@ -78,15 +72,19 @@ const Page = () => {
         </p>
       </div>
     );
+
   return (
     <>
       <div className="flex-1 flex flex-col items-center">
         <TopHeader
           items={items}
-          textButton="clear all"
-          handleAlert={handleAlert}
+          icon={<i className="fi fi-rr-gallery mt-1"></i>}
+          handleClearAll={handleClearAll}
+          handleGetItems={handleGetItems}
+          store="items_store"
         />
-        <div className="columns-4 max-md:columns-4 max-sm:columns-3 space-y-4 p-4 ">
+
+        {/* <div className="columns-4 max-md:columns-4 max-sm:columns-3 space-y-4 p-4 ">
           {items.map((item: ItemTypes, i: number) => {
             return (
               <Gallery
@@ -100,10 +98,12 @@ const Page = () => {
               />
             );
           })}
-        </div>
-        {/* <div className="w-full p-4">
+        </div> */}
+        <div className="w-full p-4">
           <Masonry
+            key={items.length}
             items={items}
+            itemKey={(data: any) => data?.id ?? Math.random()}
             columnGutter={16}
             columnWidth={150}
             overscanBy={5}
@@ -112,7 +112,7 @@ const Page = () => {
 
               return (
                 <Gallery
-                  key={index}
+                  key={data.id}
                   num={index}
                   item={data}
                   handleSelect={handleSelect}
@@ -123,16 +123,16 @@ const Page = () => {
               );
             }}
           />
-        </div> */}
-          {alert && (
-        <Alert
-          handleAlert={handleAlert}
-          handleAction={handleClearAll}
-          text="Are you sure you want to clear all items ?"
-          buttonOne="cancel"
-          buttonTwo="clear all"
-        />
-      )}
+        </div>
+        {/* {alert && (
+          <Alert
+            handleAlert={handleAlert}
+            handleAction={handleClearAll}
+            text="Are you sure you want to clear all items ?"
+            buttonOne="cancel"
+            buttonTwo="clear all"
+          />
+        )} */}
       </div>
     </>
   );

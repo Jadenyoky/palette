@@ -1,8 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Info from "./infoColor";
-import Loader from "./loader";
-import { deleteItem } from "../db";
 import sal from "sal.js";
 
 const Fav = ({ color, num, setitems, handleGetItems }: any) => {
@@ -14,13 +12,6 @@ const Fav = ({ color, num, setitems, handleGetItems }: any) => {
     console.log(color, num);
   };
 
-  const handleDelete = async (e: any) => {
-    await deleteItem("fav_store", color.id);
-
-    setitems((prev: any) => prev.filter((i: any) => i.id !== color.id));
-    handleGetItems();
-  };
-
   useEffect(() => {
     sal({
       root: document.querySelector(".itemFav"),
@@ -28,6 +19,23 @@ const Fav = ({ color, num, setitems, handleGetItems }: any) => {
       threshold: 0,
     });
   }, []);
+
+  const [selected, setselected] = useState<boolean>(false);
+
+  const handleSelectItem = () => {
+    let ids = JSON.parse(sessionStorage.getItem("select") || "[]");
+
+    if (ids.includes(color.id)) {
+      ids = ids.filter((x: number) => x !== color.id);
+    } else {
+      ids.push(color.id);
+    }
+
+    sessionStorage.setItem("select", JSON.stringify(ids));
+    setselected(!selected);
+    dispatchEvent(new Event("ids-updated"));
+  };
+
   return (
     <div className="itemFav">
       <div
@@ -35,22 +43,30 @@ const Fav = ({ color, num, setitems, handleGetItems }: any) => {
         style={{
           backgroundColor: color.hex,
         }}
-        data-sal="slide-up"
+        data-sal="zoom-in"
         data-sal-delay={200 + num * 100}
       >
         <div className="absolute top-0 right-0 flex flex-col justify-between h-full gap-1 z-20">
           <button
             onClick={(e) => {
               e.stopPropagation();
-              handleDelete(e);
+              // handleDelete(e);
+              handleSelectItem();
             }}
-            className="
-      w-7 h-7 bg-red-500/50 p-2 rounded-[24px_20px_24px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-red-500/80 transition backdrop-brightness-50
-      "
+            className={`
+      w-7 h-7 ${
+        selected ? "bg-red-500/50" : "bg-red-500/10"
+      } p-2 rounded-[24px_20px_24px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-red-500/50 transition backdrop-brightness-50
+            `}
             // data-sal="fade-in"
             // data-sal-delay={500 + num * 100}
           >
-            <i className="fi fi-rr-trash text-sm mt-1"></i>
+            {selected ? (
+              <i className="fi fi-sr-check-circle mt-1"></i>
+            ) : (
+              <i className="fi fi-rr-check-circle mt-1"></i>
+            )}
+            {/* <i className="fi fi-rr-trash text-sm mt-1"></i> */}
           </button>
           <button
             onClick={(e) => {
@@ -58,7 +74,7 @@ const Fav = ({ color, num, setitems, handleGetItems }: any) => {
               handleInfo();
             }}
             className="
-      w-7 h-7 bg-cyan-500/50 p-2 rounded-[24px_24px_20px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-cyan-500/80 transition backdrop-brightness-50
+      w-7 h-7 bg-cyan-500/10 p-2 rounded-[24px_24px_20px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-cyan-500/50 transition backdrop-brightness-50
       "
             // data-sal="fade-in"
             // data-sal-delay={500 + num * 100}
@@ -72,4 +88,4 @@ const Fav = ({ color, num, setitems, handleGetItems }: any) => {
   );
 };
 
-export default Fav;
+export default memo(Fav);

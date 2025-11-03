@@ -7,6 +7,7 @@ import Info from "../components/infoColor";
 import ColorFav from "../components/colorFav";
 import { Masonry } from "masonic";
 import TopHeader from "../components/topHeader";
+import MasonryFav from "../components/masonryFav";
 
 const Page = () => {
   const [items, setitems] = useState<any>([]);
@@ -15,6 +16,7 @@ const Page = () => {
   const [info, setinfo] = useState<boolean>(false);
 
   const handleGetItems = async () => {
+    setloading(false);
     const items = await getAllItems("fav_store");
     const order = _.orderBy(items, ["createdAt"], ["desc"]);
     const uniq = _.uniqBy(order, "hex");
@@ -65,24 +67,39 @@ const Page = () => {
     <div className="flex-1 flex flex-col items-center">
       <TopHeader
         items={items}
-        textButton="clear all"
-        handleAlert={handleAlert}
+        icon={<i className="fi fi-rr-palette mt-1"></i>}
+        handleClearAll={handleClearAll}
+        handleGetItems={handleGetItems}
+        store="fav_store"
       />
-      <div className="w-full p-4 flex items-center *:flex-1">
-        {/* {items.map((color: ColorTypes, i: number) => {
+      <MasonryFav
+        items={items}
+        setitems={setitems}
+        handleGetItems={handleGetItems}
+      />
+      {/* <div className="w-full p-4 flex items-center *:flex-1"> */}
+      {/* {items.map((color: ColorTypes, i: number) => {
           return <Fav key={i} color={color} num={i} />;
         })} */}
-        <Masonry
+      {/* <Masonry
           items={items}
           columnGutter={2}
           // columnCount={5}
           columnWidth={70}
           overscanBy={items.length / 20}
           render={({ index, data }: any) => {
-            return <ColorFav key={index} color={data} num={index} />;
+            return (
+              <ColorFav
+                key={index}
+                color={data}
+                num={index}
+                setitems={setitems}
+                handleGetItems={handleGetItems}
+              />
+            );
           }}
-        />
-      </div>
+        /> */}
+      {/* </div> */}
       {alert && (
         <Alert
           handleAlert={handleAlert}

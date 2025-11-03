@@ -41,6 +41,8 @@ const Page = () => {
   };
 
   const handleExtract = async (img: HTMLImageElement, file: any) => {
+    document.body.style.overflow = "hidden";
+
     const extract = new ColorThief();
     const color: ColorThief.RGBColor[] = extract.getPalette(img, 5);
     // console.log(color);
@@ -68,6 +70,10 @@ const Page = () => {
       setImageLoaded(true);
       setloading(true);
     }, num * 400);
+
+    setTimeout(() => {
+      document.body.style.overflow = "auto";
+    }, 300 + num * 400);
   };
 
   const handleDelete = () => {
@@ -75,11 +81,9 @@ const Page = () => {
     sessionStorage.removeItem("currentItem");
   };
 
-  const handleFav = () => {
-    setaddedToFav(!addedToFav);
-  };
-
   const handleCurrentItem = async () => {
+    document.body.style.overflow = "hidden";
+
     const storedId = sessionStorage.getItem("currentItem");
 
     if (!storedId) {
@@ -97,6 +101,10 @@ const Page = () => {
 
     setloading(true);
     setImageLoaded(true);
+
+    setTimeout(() => {
+      document.body.style.overflow = "auto";
+    }, 300);
   };
 
   useEffect(() => {

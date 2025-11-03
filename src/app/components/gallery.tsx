@@ -1,10 +1,9 @@
 "use client";
 import React, { memo, useEffect, useState } from "react";
 import { deleteItem, ItemTypes } from "../db";
-import sal from "sal.js";
-import moment from "moment";
 import ImageLoader from "./itemLoader";
 import Info from "./infoItem";
+import { set } from "lodash";
 
 const Gallery = ({
   item,
@@ -42,6 +41,24 @@ const Gallery = ({
     setinfo((prev: any) => !prev);
   };
 
+  const [selected, setselected] = useState<boolean>(false);
+
+  const handleSelectItem = () => {
+    let ids = JSON.parse(sessionStorage.getItem("select") || "[]");
+
+    if (ids.includes(item.id)) {
+      ids = ids.filter((x: number) => x !== item.id);
+      // setidList(ids);
+    } else {
+      ids.push(item.id);
+      // setidList(ids);
+    }
+
+    sessionStorage.setItem("select", JSON.stringify(ids));
+    setselected(!selected);
+    window.dispatchEvent(new Event("ids-updated"));
+  };
+
   return (
     <div>
       <div
@@ -61,15 +78,23 @@ const Gallery = ({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              handleDelete(e);
+              // handleDelete(e);
+              handleSelectItem();
             }}
-            className="
-      w-7 h-7 bg-red-500/50 p-2 rounded-[24px_20px_24px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-red-500/80 transition backdrop-brightness-50
-      "
+            className={`
+      w-7 h-7 ${
+        selected ? "bg-red-500/50" : "bg-red-500/10"
+      } p-2 rounded-[24px_20px_24px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-red-500/50 transition backdrop-brightness-50
+            `}
             // data-sal="fade-in"
             // data-sal-delay={500 + num * 100}
           >
-            <i className="fi fi-rr-trash text-sm mt-1"></i>
+            {selected ? (
+              <i className="fi fi-sr-check-circle mt-1"></i>
+            ) : (
+              <i className="fi fi-rr-check-circle mt-1"></i>
+            )}
+            {/* <i className="fi fi-rr-trash text-sm mt-1"></i> */}
           </button>
           <button
             onClick={(e) => {
@@ -77,7 +102,7 @@ const Gallery = ({
               handleInfo();
             }}
             className="
-      w-7 h-7 bg-cyan-500/50 p-2 rounded-[24px_24px_20px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-cyan-500/80 transition backdrop-brightness-50
+      w-7 h-7 bg-cyan-500/10 p-2 rounded-[24px_24px_20px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-cyan-500/50 transition backdrop-brightness-50
       "
             // data-sal="fade-in"
             // data-sal-delay={500 + num * 100}

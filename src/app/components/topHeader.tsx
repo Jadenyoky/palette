@@ -1,9 +1,17 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import sal from "sal.js";
+import AlertShad from "./alertShad";
+import { deleteItem } from "../db";
 
-const TopHeader = ({ items, textButton, handleAlert }: any) => {
+const TopHeader = ({
+  items,
+  handleClearAll,
+  icon,
+  handleGetItems,
+  store,
+}: any) => {
   const pathname = usePathname();
   const router = useRouter();
   useEffect(() => {
@@ -13,34 +21,85 @@ const TopHeader = ({ items, textButton, handleAlert }: any) => {
       threshold: 0,
     });
   }, [pathname, router]);
+
+  const [idList, setidList] = useState<any>([]);
+
+  useEffect(() => {
+    const ids = JSON.parse(sessionStorage.getItem("select") || "[]");
+    setidList(ids);
+
+    const handleUpdate = () => {
+      const updated = JSON.parse(sessionStorage.getItem("select") || "[]");
+      setidList(updated);
+      console.log(updated);
+    };
+
+    window.addEventListener("ids-updated", handleUpdate);
+    return () => sessionStorage.removeItem("select");
+  }, []);
+
+  const handleClearSelected = () => {
+    const current = sessionStorage.getItem("currentItem");
+
+    idList.forEach(async (id: any) => {
+      if (current === id) {
+        sessionStorage.removeItem("currentItem");
+      }
+      await deleteItem(store, id);
+    });
+
+    sessionStorage.removeItem("select");
+    setidList([]);
+
+    handleGetItems();
+  };
+
   return (
     <div className="topNav w-full px-4 pl-6 py-2 sticky top-0  bg-white backdrop-blur-2xl flex justify-between items-center shadow-md shadow-amber-500/10 rounded-2xl z-29">
       <div
-        className="flex items-center gap-2 text-cyan-500 font-[asap] capitalize"
+        className="flex items-center gap-2 font-[asap] capitalize"
         data-sal="zoom-in"
       >
-        {/* <p>total</p> */}
         <div
-          className=" text-green-500 font-[maven_pro] flex justify-center items-center w-10 h-10 rounded-full border-2 border-green-500/20"
+          className="relative text-green-500 font-[maven_pro] flex justify-center items-center w-10 h-10 rounded-full border-2 border-green-500/20"
           data-sal="fade-in"
           data-sal-delay="100"
         >
+          {icon && (
+            <div className="bg-white w-5 h-5 p-3 rounded-full absolute -top-3 -left-2 flex items-center justify-center text-sm text-cyan-500">
+              {icon}
+            </div>
+          )}
           {items.length}
         </div>
       </div>
-      <button
-        type="button"
-        className="flex justify-center items-center pr-4 capitalize cursor-pointer rounded-full text-red-500/50 hover:text-red-500 hover:bg-red-500/10 transition"
-        data-sal="zoom-in"
-        onClick={() => {
-          handleAlert();
-        }}
-      >
-        <div className="h-10 w-10 rounded-full flex justify-center items-center">
-          <i className="fi fi-rr-trash mt-1 text-lg"></i>
-        </div>
-        <p>{textButton}</p>
-      </button>
+      {idList.length > 0 ? (
+        <AlertShad
+          handleAction={handleClearSelected}
+          title={`${idList.length}`}
+          alertTitle={`Are you sure to clear ${idList.length} selected ${
+            (store?.includes("fav") && "colors") ||
+            (store?.includes("items") && "items")
+          } ?`}
+          description={`you can't recovery any ${
+            (store?.includes("fav") && "colors") ||
+            (store?.includes("items") && "items")
+          } after this action`}
+        />
+      ) : (
+        <AlertShad
+          handleAction={handleClearAll}
+          title={"Clear All"}
+          alertTitle={`Are you sure to clear all ${
+            (store.includes("fav") && "colors") ||
+            (store.includes("items") && "items")
+          } ?`}
+          description={`you can't recovery any ${
+            (store.includes("fav") && "colors") ||
+            (store.includes("items") && "items")
+          } after this action`}
+        />
+      )}
     </div>
   );
 };
