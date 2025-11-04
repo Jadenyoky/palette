@@ -126,11 +126,11 @@
 
   0%,
   50% {
-    scale: 0;
+    opacity: 0;
   }
 
 }
 
 .float-up2 {
-  animation: float-up2 0.5s ease-in-out;
+  animation: float-up2 0.3s ease-in-out;
 }

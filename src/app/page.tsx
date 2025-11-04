@@ -10,6 +10,7 @@ import {
   getItem,
 } from "./db";
 import { v4 } from "uuid";
+import PaletteColor from "./components/paletteColor";
 
 const Page = () => {
   const inputFile = useRef<HTMLInputElement>(null);
@@ -18,7 +19,6 @@ const Page = () => {
   const [urlImage, seturlImage] = useState<string>("");
   const [colors, setcolors] = useState<string[]>([]);
   const [randomColorId, setrandomColorId] = useState<number>(0);
-  const [addedToFav, setaddedToFav] = useState<boolean>(false);
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file: any = e.target.files?.[0];
@@ -87,6 +87,7 @@ const Page = () => {
     const storedId = sessionStorage.getItem("currentItem");
 
     if (!storedId) {
+      document.body.style.overflow = "auto";
       return setloading(true);
     }
 
@@ -213,61 +214,20 @@ const Page = () => {
       </div>
       {imageLoaded && colors.length > 0 && (
         <div
-          className="flex-1 w-full flex gap-4 justify-between items-center max-md:w-11/12"
+          className="flex-1 w-full flex gap-4 justify-center items-center max-md:w-10/12 *:flex-1 max-md:*:flex-auto flex-wrap px-4 max-sm:px-0"
           key={urlImage}
-          data-aos="fade-up"
+          // data-aos="fade-up"
         >
           {colors.map((color, i) => {
-            const handleCopy = () => {
-              const hex = convertToHex(color[0], color[1], color[2]);
-              navigator.clipboard.writeText(hex);
-              // console.log(hex, "copied", color, i);
-            };
-
-            const handleFavs = async () => {
-              const hex: string = convertToHex(color[0], color[1], color[2]);
-              const favColor = {
-                id: v4(),
-                hex: hex,
-                rgb: `rgb(${color[0]}, ${color[1]}, ${color[2]})`,
-                createdAt: Date.now(),
-              };
-              await addItem("fav_store", favColor);
-            };
-
             return (
-              <div
+              <PaletteColor
                 key={i}
-                className={`relative w-12 h-12 
-                rounded-full cursor-pointer `}
-                style={{
-                  backgroundColor: `rgb(${color[0]}, ${color[1]}, ${color[2]})`,
-                  boxShadow: ` 0 0 0 5px rgba(${colors[randomColorId][0]}, ${colors[randomColorId][1]}, ${colors[randomColorId][2]},0.1)`,
-                }}
-                data-aos="zoom-out"
-                data-aos-delay={100 + i * 100}
-              >
-                <div
-                  className="absolute -bottom-7 -right-1 bg-white w-6 h-6 rounded-full flex justify-center items-center text-black/30"
-                  data-aos="zoom-out"
-                  data-aos-delay={400 + i * 100}
-                  onClick={() => {
-                    handleFavs();
-                  }}
-                >
-                  <i className={`fi fi-rr-heart mt-1 text-sm`}></i>
-                </div>
-                <div
-                  className="absolute -top-7 -left-1 bg-white w-6 h-6 rounded-full flex justify-center items-center text-black/30"
-                  data-aos="zoom-out"
-                  data-aos-delay={450 + i * 100}
-                  onClick={() => {
-                    handleCopy();
-                  }}
-                >
-                  <i className={`fi fi-rr-copy mt-1 text-sm`}></i>
-                </div>
-              </div>
+                num={i}
+                colors={colors}
+                color={color}
+                randomColorId={randomColorId}
+                convertToHex={convertToHex}
+              />
             );
           })}
         </div>
