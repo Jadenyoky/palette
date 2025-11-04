@@ -5,6 +5,7 @@ import sal from "sal.js";
 import AlertShad from "./alertShad";
 import { deleteItem } from "../db";
 import Counter from "./counterBits";
+import { toast } from "sonner";
 
 const TopHeader = ({
   items,
@@ -53,6 +54,13 @@ const TopHeader = ({
     setidList([]);
 
     handleGetItems();
+
+    toast.success(
+      `clear ${idList.length} ${
+        (store?.includes("fav") && "colors") ||
+        (store?.includes("items") && "items")
+      }`
+    );
   };
 
   return (
@@ -89,7 +97,6 @@ const TopHeader = ({
                   ? [10, 1]
                   : [100, 10, 1]
               }
-              
             />
           }
           alertTitle={`Are you sure to clear ${idList.length} selected ${

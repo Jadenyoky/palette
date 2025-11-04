@@ -6,6 +6,7 @@ import _ from "lodash";
 import Gallery from "../components/gallery";
 import { Masonry } from "masonic";
 import TopHeader from "../components/topHeader";
+import { toast } from "sonner";
 
 const Page = () => {
   const [items, setitems] = useState<any>([]);
@@ -37,6 +38,8 @@ const Page = () => {
 
     setloading(false);
     handleGetItems();
+
+    toast.success("Cleared all items");
   };
 
   const router = useRouter();

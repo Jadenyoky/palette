@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import moment from "moment";
+import { toast } from "sonner";
 
 interface infoTypes {
   color: any;
@@ -14,6 +15,8 @@ const Info = ({ color, num, handleInfo }: infoTypes) => {
   const [copiedRgb, setcopiedRgb] = useState<boolean>(false);
 
   const handleCopy = (text: string) => {
+    toast.info(`copy color to clipboard`);
+
     if (text.includes("#")) {
       setcopiedHex(true);
       navigator.clipboard.writeText(text);

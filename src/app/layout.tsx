@@ -69,7 +69,12 @@ export default function RootLayout({
           {children}
         </main>
         <Navigation />
-        <Toaster />
+        <Toaster
+          className="lowercase"
+          closeButton
+          position="top-left"
+          richColors
+        />
       </body>
     </html>
   );

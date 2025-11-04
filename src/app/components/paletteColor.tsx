@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { v4 } from "uuid";
 import { addItem, deleteItem, getAllItems } from "../db";
 import _ from "lodash";
+import { toast } from "sonner";
 
 const PaletteColor = ({
   color,
@@ -25,6 +26,8 @@ const PaletteColor = ({
     setTimeout(() => {
       setcopied(false);
     }, 2000);
+
+    toast.info(`copy color to clipboard`);
   };
 
   const handleFavs = async () => {
@@ -33,6 +36,8 @@ const PaletteColor = ({
     if (check) {
       await deleteItem("fav_store", check.id);
       setfaved(false);
+
+      toast.error(`deleted color from fav`);
     } else {
       const hex: string = convertToHex(color[0], color[1], color[2]);
       const favColor = {
@@ -43,6 +48,7 @@ const PaletteColor = ({
       };
       await addItem("fav_store", favColor);
       setfaved(true);
+      toast.success(`added color to fav`);
     }
   };
 

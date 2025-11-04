@@ -11,7 +11,6 @@ import {
 } from "./db";
 import { v4 } from "uuid";
 import PaletteColor from "./components/paletteColor";
-import { toast } from "sonner";
 
 const Page = () => {
   const inputFile = useRef<HTMLInputElement>(null);
@@ -24,15 +23,6 @@ const Page = () => {
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file: any = e.target.files?.[0];
     if (!file) return;
-
-    toast("Event has been created", {
-      description: "Sunday, December 03, 2023 at 9:00 AM",
-      position: "top-center",
-      action: {
-        label: "close",
-        onClick: () => console.log("Undo"),
-      },
-    });
 
     setImageLoaded(false);
     setloading(false);
