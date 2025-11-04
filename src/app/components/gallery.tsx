@@ -59,6 +59,13 @@ const Gallery = ({
     window.dispatchEvent(new Event("ids-updated"));
   };
 
+  const [visible, setvisible] = useState<boolean>(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setvisible(true);
+    }, 500 + num * 150);
+  }, []);
+
   return (
     <div>
       <div
@@ -84,15 +91,15 @@ const Gallery = ({
             className={`
       w-7 h-7 ${
         selected ? "bg-red-500/50" : "bg-red-500/10"
-      } p-2 rounded-[24px_20px_24px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-red-500/50 transition backdrop-brightness-50
+      } p-2 rounded-[24px_20px_24px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-red-500/50  backdrop-brightness-50 border border-white/20 transition-transform duration-300 ${
+              visible ? "scale-100" : "scale-0"
+            } 
             `}
-            // data-sal="fade-in"
-            // data-sal-delay={500 + num * 100}
           >
             {selected ? (
-              <i className="fi fi-sr-check-circle mt-1"></i>
+              <i className="fi fi-sr-check text-xs mt-1"></i>
             ) : (
-              <i className="fi fi-rr-check-circle mt-1"></i>
+              <i className="fi fi-rr-check text-xs mt-1"></i>
             )}
             {/* <i className="fi fi-rr-trash text-sm mt-1"></i> */}
           </button>
@@ -101,13 +108,13 @@ const Gallery = ({
               e.stopPropagation();
               handleInfo();
             }}
-            className="
-      w-7 h-7 bg-cyan-500/10 p-2 rounded-[24px_24px_20px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-cyan-500/50 transition backdrop-brightness-50
-      "
-            // data-sal="fade-in"
-            // data-sal-delay={500 + num * 100}
+            className={`
+      w-7 h-7 bg-cyan-500/10 p-2 rounded-[24px_24px_20px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-cyan-500/50  backdrop-brightness-50 border border-white/20 transition-transform duration-300 ${
+        visible ? "scale-100" : "scale-0"
+      } 
+            `}
           >
-            <i className="fi fi-rr-info text-sm mt-1"></i>
+            <i className="fi fi-rr-information text-xs mt-1"></i>
           </button>
         </div>
         {/* <img

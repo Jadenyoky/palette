@@ -81,7 +81,7 @@ const TopHeader = ({
           title={
             <Counter
               value={idList.length}
-              fontSize={24}
+              fontSize={18}
               places={
                 idList.length <= 9
                   ? [1]
@@ -89,6 +89,7 @@ const TopHeader = ({
                   ? [10, 1]
                   : [100, 10, 1]
               }
+              
             />
           }
           alertTitle={`Are you sure to clear ${idList.length} selected ${

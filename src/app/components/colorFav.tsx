@@ -1,7 +1,6 @@
 "use client";
 import React, { memo, useEffect, useState } from "react";
 import Info from "./infoColor";
-import sal from "sal.js";
 
 const Fav = ({ color, num, setitems, handleGetItems }: any) => {
   const [info, setinfo] = useState<boolean>(false);
@@ -11,14 +10,6 @@ const Fav = ({ color, num, setitems, handleGetItems }: any) => {
     setinfo(!info);
     console.log(color, num);
   };
-
-  useEffect(() => {
-    sal({
-      root: document.querySelector(".itemFav"),
-      once: false,
-      threshold: 0,
-    });
-  }, []);
 
   const [selected, setselected] = useState<boolean>(false);
 
@@ -36,17 +27,26 @@ const Fav = ({ color, num, setitems, handleGetItems }: any) => {
     dispatchEvent(new Event("ids-updated"));
   };
 
+  const [visible, setvisible] = useState<boolean>(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setvisible(true);
+    }, 500 + num * 150);
+  }, []);
+
   return (
     <div className="itemFav">
       <div
-        className={`relative h-20 rounded-md transition `}
+        className={`relative h-20 rounded-md 
+            
+          `}
         style={{
           backgroundColor: color.hex,
         }}
-        data-sal="zoom-in"
-        data-sal-delay={200 + num * 100}
       >
-        <div className="absolute top-0 right-0 flex flex-col justify-between h-full gap-1 z-20">
+        <div
+          className={`absolute top-0 right-0 flex flex-col justify-between h-full gap-1 z-20 `}
+        >
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -56,15 +56,17 @@ const Fav = ({ color, num, setitems, handleGetItems }: any) => {
             className={`
       w-7 h-7 ${
         selected ? "bg-red-500/50" : "bg-red-500/10"
-      } p-2 rounded-[24px_20px_24px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-red-500/50 transition backdrop-brightness-50
+      } p-2 rounded-[24px_20px_24px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-red-500/50  backdrop-brightness-50 border border-white/20 transition-transform duration-300 ${
+              visible ? "scale-100" : "scale-0"
+            } 
             `}
             // data-sal="fade-in"
             // data-sal-delay={500 + num * 100}
           >
             {selected ? (
-              <i className="fi fi-sr-check-circle mt-1"></i>
+              <i className="fi fi-sr-check text-xs mt-1"></i>
             ) : (
-              <i className="fi fi-rr-check-circle mt-1"></i>
+              <i className="fi fi-rr-check text-xs mt-1"></i>
             )}
             {/* <i className="fi fi-rr-trash text-sm mt-1"></i> */}
           </button>
@@ -73,13 +75,15 @@ const Fav = ({ color, num, setitems, handleGetItems }: any) => {
               e.stopPropagation();
               handleInfo();
             }}
-            className="
-      w-7 h-7 bg-cyan-500/10 p-2 rounded-[24px_24px_20px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-cyan-500/50 transition backdrop-brightness-50
-      "
+            className={`
+      w-7 h-7 bg-cyan-500/10 p-2 rounded-[24px_24px_20px_24px] cursor-pointer flex justify-center items-center text-white/90 hover:bg-cyan-500/50  backdrop-brightness-50 border border-white/20 transition-transform duration-300 ${
+        visible ? "scale-100" : "scale-0"
+      } 
+        `}
             // data-sal="fade-in"
             // data-sal-delay={500 + num * 100}
           >
-            <i className="fi fi-rr-info text-sm mt-1"></i>
+            <i className="fi fi-rr-information text-xs mt-1"></i>
           </button>
         </div>
       </div>
