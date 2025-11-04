@@ -10,14 +10,7 @@ import { usePathname, useRouter } from "next/navigation";
 import "sal.js/dist/sal.css";
 import sal from "sal.js";
 import Shapes from "./components/shapes";
-
-// export const metadata: Metadata = {
-//   title: {
-//     default: "Palette",
-//     template: "%s | Palette",
-//   },
-//   description: "Extract colors hue from images easily",
-// };
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
   children,
@@ -76,6 +69,7 @@ export default function RootLayout({
           {children}
         </main>
         <Navigation />
+        <Toaster />
       </body>
     </html>
   );

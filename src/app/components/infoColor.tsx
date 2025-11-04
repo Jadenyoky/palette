@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment";
 
 interface infoTypes {
@@ -10,8 +10,23 @@ interface infoTypes {
 }
 
 const Info = ({ color, num, handleInfo }: infoTypes) => {
+  const [copiedHex, setcopiedHex] = useState<boolean>(false);
+  const [copiedRgb, setcopiedRgb] = useState<boolean>(false);
+
   const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
+    if (text.includes("#")) {
+      setcopiedHex(true);
+      navigator.clipboard.writeText(text);
+      setTimeout(() => {
+        setcopiedHex(false);
+      }, 2000);
+    } else {
+      setcopiedRgb(true);
+      navigator.clipboard.writeText(text);
+      setTimeout(() => {
+        setcopiedRgb(false);
+      }, 2000);
+    }
   };
 
   return (
@@ -51,7 +66,13 @@ const Info = ({ color, num, handleInfo }: infoTypes) => {
             >
               <p>{color.hex}</p>
               <div>
-                <i className="fi fi-rr-copy mt-1 text-orange-500/50 hover:text-orange-500 transition "></i>
+                {copiedHex ? (
+                  <i className={`fi fi-br-check mt-1 text-green-500/50`}></i>
+                ) : (
+                  <i
+                    className={`fi fi-rr-copy mt-1 text-amber-500/70 hover:text-amber-500`}
+                  ></i>
+                )}
               </div>
             </button>
             <button
@@ -65,7 +86,13 @@ const Info = ({ color, num, handleInfo }: infoTypes) => {
             >
               <p>{color.rgb}</p>
               <div>
-                <i className="fi fi-rr-copy mt-1 text-orange-500/50 hover:text-orange-500 transition "></i>
+                {copiedRgb ? (
+                  <i className={`fi fi-br-check mt-1 text-green-500/50`}></i>
+                ) : (
+                  <i
+                    className={`fi fi-rr-copy mt-1 text-amber-500/70 hover:text-amber-500`}
+                  ></i>
+                )}
               </div>
             </button>
 
