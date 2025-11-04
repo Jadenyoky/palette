@@ -13,7 +13,7 @@ const MasonryFav = ({ items, setitems, handleGetItems }: any) => {
         items={items}
         columnGutter={8}
         columnWidth={120}
-        overscanBy={items.length / 20}
+        overscanBy={20}
         render={({ index, data }: any) => {
           return (
             <ColorFav

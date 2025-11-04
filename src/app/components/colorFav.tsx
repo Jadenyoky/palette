@@ -43,6 +43,8 @@ const Fav = ({ color, num, setitems, handleGetItems }: any) => {
         style={{
           backgroundColor: color.hex,
         }}
+        data-aos="fade-in"
+        data-aos-delay={500 + num * 100}
       >
         <div
           className={`absolute top-0 right-0 flex flex-col justify-between h-full gap-1 z-20 `}
