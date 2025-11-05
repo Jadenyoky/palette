@@ -37,7 +37,7 @@ const PaletteColor = ({
       await deleteItem("fav_store", check.id);
       setfaved(false);
 
-      toast.error(`deleted color from fav`);
+      toast.error(`removed color from fav`);
     } else {
       const hex: string = convertToHex(color[0], color[1], color[2]);
       const favColor = {
@@ -59,6 +59,7 @@ const PaletteColor = ({
     if (find) {
       console.log(find);
       setfaved(true);
+      setoptions(true);
     }
     return find;
   };
@@ -70,15 +71,19 @@ const PaletteColor = ({
   return (
     <div
       className={`relative w-20 h-20 max-sm:h-16 rounded-md cursor-pointer  ${
-        faved ? "animate-bounce" : "float-up2"
+        faved ? "anim1" : "float-up2"
       }
+      hover:scale-105 transition
       `}
-      style={{
-        backgroundColor: `rgb(${color[0]}, ${color[1]}, ${color[2]})`,
-        boxShadow: ` 0 0 0 5px rgba(${colors[randomColorId][0]}, ${colors[randomColorId][1]}, ${colors[randomColorId][2]},0.1)`,
-      }}
       onClick={handleOptions}
     >
+      <div
+        className="h-full w-full rounded-md anim2"
+        style={{
+          backgroundColor: `rgb(${color[0]}, ${color[1]}, ${color[2]})`,
+          boxShadow: ` 0 0 0 5px rgba(${colors[randomColorId][0]}, ${colors[randomColorId][1]}, ${colors[randomColorId][2]},0.1)`,
+        }}
+      ></div>
       {options && (
         <div className="absolute -top-6 right-0 flex gap-4 w-full justify-between max-sm:justify-center">
           <div

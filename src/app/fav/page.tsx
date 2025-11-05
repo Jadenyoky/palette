@@ -36,7 +36,7 @@ const Page = () => {
     setloading(false);
     handleGetItems();
 
-    toast.success(`cleared all colors`);
+    toast.error(`cleared all colors`);
   };
 
   const handleAlert = () => {

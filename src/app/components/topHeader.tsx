@@ -55,7 +55,7 @@ const TopHeader = ({
 
     handleGetItems();
 
-    toast.success(
+    toast.error(
       `clear ${idList.length} ${
         (store?.includes("fav") && "colors") ||
         (store?.includes("items") && "items")

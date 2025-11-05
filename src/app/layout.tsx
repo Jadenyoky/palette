@@ -74,9 +74,15 @@ export default function RootLayout({
         <Navigation />
         <Toaster
           className="lowercase"
-          closeButton
+          // closeButton
           position="top-left"
           richColors
+          style={{
+            fontFamily: "inconsolata",
+          }}
+          toastOptions={{
+            duration: 1500,
+          }}
         />
       </body>
     </html>

@@ -198,7 +198,32 @@ HTML: <div class="loader"></div>
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.anim1 {
+  animation: anim1 1s ease-in-out infinite;
+}
+
+@keyframes anim1 {
+  50% {
+    /* box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.1); */
+    transform: scale(1.03);
+  }
+}
+
+.anim2 {
+  animation: anim2 1s ease-in-out infinite;
+}
+
+@keyframes anim2 {
+
+  0%,
+  100% {
+    clip-path: polygon(72% 0, 0 54%, 100% 100%);
+  }
+
 }

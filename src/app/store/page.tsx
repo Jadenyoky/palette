@@ -39,7 +39,7 @@ const Page = () => {
     setloading(false);
     handleGetItems();
 
-    toast.success("Cleared all items");
+    toast.error("Cleared all items");
   };
 
   const router = useRouter();
