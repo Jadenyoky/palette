@@ -1,53 +1,61 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import LogoLoop from "@/components/LogoLoop";
 
 const Page = () => {
-  const [items, setitems] = useState<{ id: number; isDeleting: boolean }[]>([]);
-
-  const handleItems = () => {
-    const newItems = Array.from({ length: 1000 }, (_, i) => ({
-      id: i + 1,
-      isDeleting: false,
-    }));
-    setitems(newItems);
-  };
-
-  const handleDelete = (id: number) => {
-    // أولاً نعمل فلاج للعنصر إنه بيتحذف
-    setitems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, isDeleting: true } : item
-      )
-    );
-
-    // بعد الأنيميشن نحذفه فعليًا
-    setTimeout(() => {
-      setitems((prev) => prev.filter((item) => item.id !== id));
-    }, 300); // نفس مدة الترانزيشن
-  };
-
-  useEffect(() => {
-    handleItems();
-  }, []);
+  const skills = [
+    {
+      alt: "html",
+      src: "skills/html-5.png",
+    },
+    {
+      alt: "css",
+      src: "skills/css-3.png",
+    },
+    {
+      alt: "javascript",
+      src: "skills/js.png",
+    },
+    {
+      alt: "api",
+      src: "skills/api.png",
+    },
+    {
+      alt: "react",
+      src: "skills/react.png",
+    },
+    {
+      alt: "next",
+      src: "skills/next.png",
+    },
+    {
+      alt: "tailwind",
+      src: "skills/tailwind.png",
+    },
+    {
+      alt: "pwa",
+      src: "skills/pwa.png",
+    },
+    {
+      alt: "firebase",
+      src: "skills/firebase.png",
+    },
+  ];
 
   return (
-    <div className="flex flex-wrap gap-4 mx-auto p-4">
-      {items.map((item) => (
-        <div
-          key={item.id}
-          onClick={() => handleDelete(item.id)}
-          className={`w-12 h-12 border flex items-center justify-center cursor-pointer transition-all duration-300 ${
-            item.isDeleting
-              ? "opacity-0 scale-50"
-              : "opacity-100 scale-100 hover:bg-red-200"
-          }
-          scale-90
-          transition-all duration-300
-          `}
-        >
-          {item.id}
-        </div>
-      ))}
+    <div className="fixed left-0 -top-4 flex justify-center items-center flex-wrap gap-4 mx-auto p-4 w-full bg-[#333] h-full">
+      <LogoLoop
+        logos={skills}
+        speed={60}
+        direction="right"
+        logoHeight={36}
+        gap={30}
+        pauseOnHover
+        scaleOnHover
+        fadeOut
+        fadeOutColor="#333"
+        ariaLabel="Technology partners"
+      />
     </div>
   );
 };
