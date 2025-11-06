@@ -1,15 +1,13 @@
-// import type { Metadata } from "next";
 "use client";
 import "./globals.css";
 import "@flaticon/flaticon-uicons/css/all/all.css";
-import Navigation from "./components/navigation";
+import Navigation from "@/components/navigation";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import Aos from "aos";
 import { usePathname, useRouter } from "next/navigation";
 import "sal.js/dist/sal.css";
-import sal from "sal.js";
-import Shapes from "./components/shapes";
+import Shapes from "@/components/shapes";
 import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
@@ -44,10 +42,6 @@ export default function RootLayout({
     });
   }, []);
 
-  // useEffect(() => {
-  //   sal();
-  // }, []);
-
   return (
     <html lang="en">
       <head>
@@ -74,7 +68,6 @@ export default function RootLayout({
         <Navigation />
         <Toaster
           className="lowercase"
-          // closeButton
           position="top-left"
           richColors
           style={{

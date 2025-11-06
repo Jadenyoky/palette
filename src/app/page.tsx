@@ -1,16 +1,9 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import ColorThief from "colorthief";
-import {
-  ItemTypes,
-  addItem,
-  deleteItem,
-  clearAllItems,
-  getAllItems,
-  getItem,
-} from "./db";
+import { ItemTypes, addItem, getItem } from "./db";
 import { v4 } from "uuid";
-import PaletteColor from "./components/paletteColor";
+import PaletteColor from "@/components/paletteColor";
 
 const Page = () => {
   const inputFile = useRef<HTMLInputElement>(null);
@@ -27,13 +20,11 @@ const Page = () => {
     setImageLoaded(false);
     setloading(false);
     const url = URL.createObjectURL(file);
-    // console.log(url);
     seturlImage(url);
 
     const img = new Image();
     img.crossOrigin = "Anonymous";
     img.src = url;
-    // console.log(img, img.src);
 
     img.onload = async () => {
       handleExtract(img, file);
@@ -45,13 +36,10 @@ const Page = () => {
 
     const extract = new ColorThief();
     const color: ColorThief.RGBColor[] = extract.getPalette(img, 5);
-    // console.log(color);
     setcolors(color as []);
 
     const num = Math.floor(Math.random() * color.length);
     setrandomColorId(num);
-
-    // console.log(file);
 
     const item: ItemTypes = {
       id: v4(),
@@ -62,7 +50,6 @@ const Page = () => {
       shadow: convertToHex(color[num][0], color[num][1], color[num][2]),
     };
     await addItem("items_store", item);
-    // console.log("Image added to IndexedDB");
 
     sessionStorage.setItem("currentItem", item.id as any);
 
@@ -92,7 +79,6 @@ const Page = () => {
     }
 
     const item = await getItem("items_store", storedId);
-    // console.log(item);
 
     const url = URL.createObjectURL(item.blob);
     seturlImage(url);
@@ -124,7 +110,6 @@ const Page = () => {
       })
       .join("")}`;
 
-    // console.log(hex);
     return hex;
   };
 
@@ -188,7 +173,7 @@ const Page = () => {
             </div>
           )}
         </div>
-        <div className="max-md:max-w-11/12 max-md:mx-auto ">
+        <div className="max-md:max-w-11/12 max-md:mx-auto">
           <div className="relative max-h-[400px] rounded-2xl mt-4 p-4 flex flex-col">
             {imageLoaded && (
               <div key={urlImage} className="flex-1" data-aos="zoom-in">
@@ -203,7 +188,6 @@ const Page = () => {
                   className="max-md:max-h-[300px] max-h-[350px] rounded-2xl object-contain p-2 overflow-hidden "
                   alt=""
                   style={{
-                    // transform: "translateY(-10px)",
                     boxShadow: `inset 0 0 50px rgba(${colors[randomColorId][0]}, ${colors[randomColorId][1]}, ${colors[randomColorId][2]},0.5)`,
                   }}
                 />
@@ -212,31 +196,10 @@ const Page = () => {
           </div>
         </div>
       </div>
-      {/* {imageLoaded && colors.length > 0 && (
-        <div
-          className="flex-1 w-full flex gap-4 justify-center items-center max-md:w-10/12 *:flex-1 max-md:*:flex-auto flex-wrap px-4 max-sm:px-0"
-          key={urlImage}
-          // data-aos="fade-up"
-        >
-          {colors.map((color, i) => {
-            return (
-              <PaletteColor
-                key={i}
-                num={i}
-                colors={colors}
-                color={color}
-                randomColorId={randomColorId}
-                convertToHex={convertToHex}
-              />
-            );
-          })}
-        </div>
-      )} */}
       {imageLoaded && colors.length > 0 && (
         <div
           className=" flex-1 w-full grid grid-cols-5 max-md:flex max-md:flex-wrap gap-8 justify-between items-center max-md:w-11/12 max-sm:justify-evenly"
           key={urlImage}
-          // data-aos="fade-up"
         >
           {colors.map((color, i) => {
             return (

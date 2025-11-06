@@ -1,7 +1,6 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import Aos from "aos";
+import React, { useEffect } from "react";
 import sal from "sal.js";
 
 const Top = () => {
@@ -43,10 +42,7 @@ const Top = () => {
 
   return (
     <div
-      className="bottomNav fixed w-full max-h-[70px] bottom-0 flex justify-center items-center mx-auto max-md:mx-0 z-29
-      
-      "
-      // data-aos="fade-in"
+      className="bottomNav fixed w-full max-h-[70px] bottom-0 flex justify-center items-center mx-auto max-md:mx-0 z-29"
       data-sal="fade"
     >
       <div className="relative p-2 gap-4 rounded-full w-[600px] max-md:w-full mb-4 max-md:mb-0 max-md:rounded-[24px_24px_0px_0px] flex justify-between items-center  text-black *:flex-1 *:text-center overflow-hidden border border-black/10 bg-white max-md:shadow-[0px_-20px_20px] shadow-[-10px_30px_30px] shadow-white/50">
@@ -71,14 +67,12 @@ const Top = () => {
                 className={`${
                   isActive ? link.acitve : link.icon
                 } text-lg mt-1 ${isActive ? "" : ""} `}
-                // data-aos="fade-in"
                 data-sal="zoom-in"
               />
               <p
                 className={`max-md:text-sm font-semibold capitalize ${
                   isActive ? "" : "hidden"
                 }`}
-                // data-aos="zoom-in"
                 data-sal="zoom-in"
               >
                 {link.name}

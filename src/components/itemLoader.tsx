@@ -36,7 +36,6 @@ const GalleryItem = ({
       })
       .join("")}`;
 
-    // console.log(hex);
     return hex;
   };
 
@@ -62,19 +61,6 @@ const GalleryItem = ({
         </div>
       )}
 
-      {/* الصورة */}
-      {/* <img
-        src={src}
-        alt={alt}
-        onLoad={() => {
-          setTimeout(() => {
-            setLoaded(true);
-          }, 3000);
-        }}
-        className={`w-full h-auto transition-opacity `}
-        data-sal="zoom-in"
-        data-sal-delay={delay}
-      /> */}
       <picture>
         <source
           srcSet={src}

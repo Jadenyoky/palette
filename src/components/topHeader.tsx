@@ -3,7 +3,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import sal from "sal.js";
 import AlertShad from "./alertShad";
-import { deleteItem } from "../db";
+import { deleteItem } from "@/app/db";
 import Counter from "./counterBits";
 import { toast } from "sonner";
 
@@ -33,7 +33,6 @@ const TopHeader = ({
     const handleUpdate = () => {
       const updated = JSON.parse(sessionStorage.getItem("select") || "[]");
       setidList(updated);
-      console.log(updated);
     };
 
     window.addEventListener("ids-updated", handleUpdate);

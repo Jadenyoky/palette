@@ -1,20 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getAllItems, ColorTypes, clearAllItems } from "../db";
-import Alert from "../components/alert";
+import { getAllItems, clearAllItems } from "@/app/db";
+import Alert from "@/components/alert";
 import _ from "lodash";
-import Info from "../components/infoColor";
-import ColorFav from "../components/colorFav";
-import { Masonry } from "masonic";
-import TopHeader from "../components/topHeader";
-import MasonryFav from "../components/masonryFav";
+import TopHeader from "@/components/topHeader";
+import MasonryFav from "@/components/masonryFav";
 import { toast } from "sonner";
 
 const Page = () => {
   const [items, setitems] = useState<any>([]);
   const [loading, setloading] = useState<boolean>(false);
   const [alert, setalert] = useState<boolean>(false);
-  const [info, setinfo] = useState<boolean>(false);
 
   const handleGetItems = async () => {
     setloading(false);
@@ -80,29 +76,6 @@ const Page = () => {
         setitems={setitems}
         handleGetItems={handleGetItems}
       />
-      {/* <div className="w-full p-4 flex items-center *:flex-1"> */}
-      {/* {items.map((color: ColorTypes, i: number) => {
-          return <Fav key={i} color={color} num={i} />;
-        })} */}
-      {/* <Masonry
-          items={items}
-          columnGutter={2}
-          // columnCount={5}
-          columnWidth={70}
-          overscanBy={items.length / 20}
-          render={({ index, data }: any) => {
-            return (
-              <ColorFav
-                key={index}
-                color={data}
-                num={index}
-                setitems={setitems}
-                handleGetItems={handleGetItems}
-              />
-            );
-          }}
-        /> */}
-      {/* </div> */}
       {alert && (
         <Alert
           handleAlert={handleAlert}

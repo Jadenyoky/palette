@@ -1,6 +1,6 @@
 "use client";
 import React, { memo, useEffect, useState } from "react";
-import { deleteItem, ItemTypes } from "../db";
+import { deleteItem, ItemTypes } from "@/app/db";
 import ImageLoader from "./itemLoader";
 import Info from "./infoItem";
 import { set } from "lodash";
@@ -48,10 +48,8 @@ const Gallery = ({
 
     if (ids.includes(item.id)) {
       ids = ids.filter((x: number) => x !== item.id);
-      // setidList(ids);
     } else {
       ids.push(item.id);
-      // setidList(ids);
     }
 
     sessionStorage.setItem("select", JSON.stringify(ids));
@@ -78,14 +76,11 @@ const Gallery = ({
           e.stopPropagation();
           handleSelect(item.id, "/");
         }}
-        // data-sal="zoom-in"
-        // data-sal-delay={300 + num * 100}
       >
         <div className="absolute top-0 right-0 flex flex-col justify-between h-full gap-1 z-20">
           <button
             onClick={(e) => {
               e.stopPropagation();
-              // handleDelete(e);
               handleSelectItem();
             }}
             className={`
@@ -101,7 +96,6 @@ const Gallery = ({
             ) : (
               <i className="fi fi-rr-check text-xs mt-1"></i>
             )}
-            {/* <i className="fi fi-rr-trash text-sm mt-1"></i> */}
           </button>
           <button
             onClick={(e) => {
@@ -117,11 +111,6 @@ const Gallery = ({
             <i className="fi fi-rr-information text-xs mt-1"></i>
           </button>
         </div>
-        {/* <img
-          src={url}
-          alt={item.name}
-          className=" w-full object-cover pointer-events-none rounded-xl "
-        /> */}
         <ImageLoader
           src={url}
           alt={item.name}

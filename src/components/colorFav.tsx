@@ -4,11 +4,9 @@ import Info from "./infoColor";
 
 const Fav = ({ color, num, setitems, handleGetItems }: any) => {
   const [info, setinfo] = useState<boolean>(false);
-  const [loaded, setloaded] = useState<boolean>(false);
 
   const handleInfo = () => {
     setinfo(!info);
-    console.log(color, num);
   };
 
   const [selected, setselected] = useState<boolean>(false);
@@ -52,7 +50,6 @@ const Fav = ({ color, num, setitems, handleGetItems }: any) => {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              // handleDelete(e);
               handleSelectItem();
             }}
             className={`
@@ -62,15 +59,12 @@ const Fav = ({ color, num, setitems, handleGetItems }: any) => {
               visible ? "scale-100" : "scale-0"
             } 
             `}
-            // data-sal="fade-in"
-            // data-sal-delay={500 + num * 100}
           >
             {selected ? (
               <i className="fi fi-sr-check text-xs mt-1"></i>
             ) : (
               <i className="fi fi-rr-check text-xs mt-1"></i>
             )}
-            {/* <i className="fi fi-rr-trash text-sm mt-1"></i> */}
           </button>
           <button
             onClick={(e) => {
@@ -82,8 +76,6 @@ const Fav = ({ color, num, setitems, handleGetItems }: any) => {
         visible ? "scale-100" : "scale-0"
       } 
         `}
-            // data-sal="fade-in"
-            // data-sal-delay={500 + num * 100}
           >
             <i className="fi fi-rr-information text-xs mt-1"></i>
           </button>

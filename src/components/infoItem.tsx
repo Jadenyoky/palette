@@ -35,11 +35,6 @@ const Info = ({ item, num, url, handleInfo }: infoTypes) => {
             data-aos="zoom-out"
             data-aos-delay="300"
           >
-            {/* <img
-                  src={url}
-                  alt={item.name}
-                  className="object-cover w-full h-full"
-                /> */}
             <ItemLoader
               src={url}
               alt={item.name}

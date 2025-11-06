@@ -1,11 +1,11 @@
 "use client";
-import React, { memo, useEffect, useState } from "react";
-import { clearAllItems, getAllItems, ItemTypes } from "../db";
-import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { clearAllItems, getAllItems, ItemTypes } from "@/app/db";
+import { useRouter } from "next/navigation";
 import _ from "lodash";
-import Gallery from "../components/gallery";
+import Gallery from "@/components/gallery";
 import { Masonry } from "masonic";
-import TopHeader from "../components/topHeader";
+import TopHeader from "@/components/topHeader";
 import { toast } from "sonner";
 
 const Page = () => {
@@ -14,14 +14,12 @@ const Page = () => {
   const handleGetItems = async () => {
     setloading(false);
     const items: ItemTypes[] = await getAllItems("items_store");
-    // console.log(items);
 
     const order = _.orderBy(items, ["createdAt"], ["desc"]);
 
     setitems(order);
 
     const random = Math.floor(Math.random() * 5);
-    // console.log(random);
 
     setTimeout(() => {
       setloading(true);
@@ -87,21 +85,6 @@ const Page = () => {
           store="items_store"
         />
 
-        {/* <div className="columns-4 max-md:columns-4 max-sm:columns-3 space-y-4 p-4 ">
-          {items.map((item: ItemTypes, i: number) => {
-            return (
-              <Gallery
-                key={i}
-                num={i}
-                handleSelect={handleSelect}
-                item={item}
-                setitems={setitems}
-                setloading={setloading}
-                handleGetItems={handleGetItems}
-              />
-            );
-          })}
-        </div> */}
         <div className="w-full p-4">
           <Masonry
             key={items.length}
@@ -111,7 +94,6 @@ const Page = () => {
             columnWidth={150}
             overscanBy={5}
             render={({ index, data }: any) => {
-              console.log(index);
 
               return (
                 <Gallery
@@ -127,15 +109,6 @@ const Page = () => {
             }}
           />
         </div>
-        {/* {alert && (
-          <Alert
-            handleAlert={handleAlert}
-            handleAction={handleClearAll}
-            text="Are you sure you want to clear all items ?"
-            buttonOne="cancel"
-            buttonTwo="clear all"
-          />
-        )} */}
       </div>
     </>
   );

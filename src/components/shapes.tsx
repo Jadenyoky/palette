@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
-import { getAllItems } from "../db";
+import { getAllItems } from "@/app/db";
 import _ from "lodash";
-import "../styles/animations.css"; // هنا هنضيف ملف CSS فيه الحركات
+import "@/styles/animations.css"; // هنا هنضيف ملف CSS فيه الحركات
 
 const Shapes = () => {
   const [colors, setcolors] = useState<any>([]);
@@ -24,7 +24,6 @@ const Shapes = () => {
     const random = _.sampleSize(unique, 25);
 
     setcolors(random);
-    // console.log(random);
 
     if (positionsRef.current.length === 0) {
       positionsRef.current = filter.map(() => ({

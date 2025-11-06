@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { v4 } from "uuid";
-import { addItem, deleteItem, getAllItems } from "../db";
+import { addItem, deleteItem, getAllItems } from "@/app/db";
 import _ from "lodash";
 import { toast } from "sonner";
 
@@ -57,9 +57,7 @@ const PaletteColor = ({
     const hex: string = convertToHex(color[0], color[1], color[2]);
     const find = items.find((i: any) => i.hex === hex);
     if (find) {
-      console.log(find);
       setfaved(true);
-      // setoptions(true);
     }
     return find;
   };
@@ -69,7 +67,6 @@ const PaletteColor = ({
   const handleRandomShape = () => {
     const random = Math.floor(Math.random() * 33);
     setrandomNum(random);
-    console.log(random);
   };
 
   useEffect(() => {
@@ -87,13 +84,6 @@ const PaletteColor = ({
       `}
       onClick={handleOptions}
     >
-      {/* <div
-        className="h-full w-full rounded-md anim2"
-        style={{
-          backgroundColor: `rgb(${color[0]}, ${color[1]}, ${color[2]})`,
-          boxShadow: ` 0 0 0 5px rgba(${colors[randomColorId][0]}, ${colors[randomColorId][1]}, ${colors[randomColorId][2]},0.1)`,
-        }}
-      ></div> */}
       <div
         className="bg-cyan-500 aspect-square"
         style={{

@@ -11,7 +11,6 @@ const SelectionCounter = React.memo(() => {
     const handleUpdate = () => {
       const updated = JSON.parse(sessionStorage.getItem("select") || "[]");
       setidList(updated);
-      console.log(updated);
     };
 
     window.addEventListener("ids-updated", handleUpdate);
