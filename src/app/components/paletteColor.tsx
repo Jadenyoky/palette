@@ -59,27 +59,48 @@ const PaletteColor = ({
     if (find) {
       console.log(find);
       setfaved(true);
-      setoptions(true);
+      // setoptions(true);
     }
     return find;
   };
 
+  const [randomNum, setrandomNum] = useState<number>(1);
+
+  const handleRandomShape = () => {
+    const random = Math.floor(Math.random() * 33);
+    setrandomNum(random);
+    console.log(random);
+  };
+
   useEffect(() => {
     handleCheck();
+    handleRandomShape();
   }, []);
 
   return (
     <div
-      className={`relative w-20 h-20 max-sm:h-16 rounded-md cursor-pointer  ${
+      className={`relative rounded-md cursor-pointer  ${
         faved ? "anim1" : "float-up2"
       }
-      hover:scale-105 transition
+      hover:scale-105 transition 
+      min-w-20
       `}
       onClick={handleOptions}
     >
-      <div
+      {/* <div
         className="h-full w-full rounded-md anim2"
         style={{
+          backgroundColor: `rgb(${color[0]}, ${color[1]}, ${color[2]})`,
+          boxShadow: ` 0 0 0 5px rgba(${colors[randomColorId][0]}, ${colors[randomColorId][1]}, ${colors[randomColorId][2]},0.1)`,
+        }}
+      ></div> */}
+      <div
+        className="bg-cyan-500 aspect-square"
+        style={{
+          maskImage: `url('/blobs/Asset ${randomNum || 1}.svg')`,
+          maskRepeat: "no-repeat",
+          maskSize: "contain",
+          maskPosition: "center",
           backgroundColor: `rgb(${color[0]}, ${color[1]}, ${color[2]})`,
           boxShadow: ` 0 0 0 5px rgba(${colors[randomColorId][0]}, ${colors[randomColorId][1]}, ${colors[randomColorId][2]},0.1)`,
         }}

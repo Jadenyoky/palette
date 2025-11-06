@@ -212,7 +212,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      {imageLoaded && colors.length > 0 && (
+      {/* {imageLoaded && colors.length > 0 && (
         <div
           className="flex-1 w-full flex gap-4 justify-center items-center max-md:w-10/12 *:flex-1 max-md:*:flex-auto flex-wrap px-4 max-sm:px-0"
           key={urlImage}
@@ -227,6 +227,27 @@ const Page = () => {
                 color={color}
                 randomColorId={randomColorId}
                 convertToHex={convertToHex}
+              />
+            );
+          })}
+        </div>
+      )} */}
+      {imageLoaded && colors.length > 0 && (
+        <div
+          className=" flex-1 w-full grid grid-cols-5 max-md:flex max-md:flex-wrap gap-8 justify-between items-center max-md:w-11/12 max-sm:justify-evenly"
+          key={urlImage}
+          // data-aos="fade-up"
+        >
+          {colors.map((color, i) => {
+            return (
+              <PaletteColor
+                key={i}
+                num={i}
+                colors={colors}
+                color={color}
+                randomColorId={randomColorId}
+                convertToHex={convertToHex}
+                randomShape={"/blobs/Asset 1.svg"}
               />
             );
           })}

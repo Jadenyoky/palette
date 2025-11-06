@@ -43,8 +43,8 @@ const Page = () => {
   ];
 
   return (
-    <div className="fixed left-0 -top-4 flex justify-center items-center flex-wrap gap-4 mx-auto p-4 w-full bg-[#333] h-full">
-      <LogoLoop
+    <div className="columns-5 gap-4 p-4">
+      {/* <LogoLoop
         logos={skills}
         speed={60}
         direction="right"
@@ -55,7 +55,66 @@ const Page = () => {
         fadeOut
         fadeOutColor="#333"
         ariaLabel="Technology partners"
+      /> */}
+      {/* <img
+        className="bg-cyan-500"
+        src={`asset1.svg`}
+        style={{
+          maskImage: "url(asset2.svg)",
+          maskSize: "contain",
+          maskPosition: "center",
+          maskRepeat: "no-repeat",
+        }}
       />
+      <img src={`asset2.svg`} />
+      <img src={`asset1.svg`} />
+      <img src={`asset2.svg`} />
+      <img src={`asset1.svg`} /> */}
+      <div
+        className="bg-cyan-500 aspect-square"
+        style={{
+          maskImage: "url('asset1.svg')",
+          maskRepeat: "no-repeat",
+          maskSize: "contain",
+          maskPosition: "center",
+        }}
+      ></div>
+      <div
+        className="bg-cyan-500 aspect-square"
+        style={{
+          maskImage: "url('asset2.svg')",
+          maskRepeat: "no-repeat",
+          maskSize: "contain",
+          maskPosition: "center",
+        }}
+      ></div>{" "}
+      <div
+        className="bg-cyan-500 aspect-square"
+        style={{
+          maskImage: "url('asset1.svg')",
+          maskRepeat: "no-repeat",
+          maskSize: "contain",
+          maskPosition: "center",
+        }}
+      ></div>{" "}
+      <div
+        className="bg-cyan-500 aspect-square"
+        style={{
+          maskImage: "url('asset2.svg')",
+          maskRepeat: "no-repeat",
+          maskSize: "contain",
+          maskPosition: "center",
+        }}
+      ></div>{" "}
+      <div
+        className="bg-cyan-500 aspect-square"
+        style={{
+          maskImage: "url('asset2.svg')",
+          maskRepeat: "no-repeat",
+          maskSize: "contain",
+          maskPosition: "center",
+        }}
+      ></div>
     </div>
   );
 };

@@ -38,14 +38,19 @@ export default withPwaInit({
         },
       },
       {
+        // urlPattern: /.*/i,
+        // handler: "NetworkFirst",
         urlPattern: /.*/i,
         handler: "NetworkFirst",
         options: {
           cacheName: "pages-cache",
           networkTimeoutSeconds: 3,
-          expiration: {
-            maxEntries: 200,
-            maxAgeSeconds: 60 * 60 * 24 * 7, // 7 أيام
+          expiration: { maxEntries: 200 },
+          backgroundSync: {
+            name: "offline-queue",
+            options: {
+              maxRetentionTime: 24 * 60, // دقيقة × 24 ساعة
+            },
           },
         },
       },
