@@ -4,6 +4,7 @@ import ColorThief from "colorthief";
 import { ItemTypes, addItem, getItem } from "./db";
 import { v4 } from "uuid";
 import PaletteColor from "@/components/paletteColor";
+import { toast } from "sonner";
 
 const Page = () => {
   const inputFile = useRef<HTMLInputElement>(null);
@@ -113,6 +114,8 @@ const Page = () => {
     return hex;
   };
 
+  const [change, setchange] = useState<boolean>(false);
+
   return (
     <div className="flex-1 gap-8 flex flex-col pt-4 justify-center items-center">
       <div className="w-full flex flex-col items-center">
@@ -173,7 +176,7 @@ const Page = () => {
             </div>
           )}
         </div>
-        <div className="max-md:max-w-11/12 max-md:mx-auto">
+        <div className="max-md:max-w-11/12 max-md:mx-auto relative">
           <div className="relative max-h-[400px] rounded-2xl mt-4 p-4 flex flex-col">
             {imageLoaded && (
               <div key={urlImage} className="flex-1" data-aos="zoom-in">
@@ -194,12 +197,35 @@ const Page = () => {
               </div>
             )}
           </div>
+          {imageLoaded && (
+            <button
+              data-aos="zoom-in"
+              data-aos-delay="400"
+              type="button"
+              onClick={() => {
+                setchange(!change);
+                toast.info("shapes changed");
+              }}
+              className="absolute bottom-0 right-0 w-12 h-12 bg-white shadow-xl border-cyan-500 hover:text-cyan-500 rounded-full transition cursor-pointer flex items-center justify-center text-[var(--color1)]"
+              style={{
+                background: "white",
+                maskImage: `url('/blobs/Asset 4.svg')`,
+                maskRepeat: "no-repeat",
+                maskSize: "contain",
+                maskPosition: "center",
+              }}
+            >
+              <i className="fi fi-ss-sparkles mt-2 text-xl"></i>
+            </button>
+          )}
         </div>
       </div>
+
       {imageLoaded && colors.length > 0 && (
         <div
-          className=" flex-1 w-full grid grid-cols-5 max-md:flex max-md:flex-wrap gap-8 justify-between items-center max-md:w-11/12 max-sm:justify-evenly"
-          key={urlImage}
+          className="relative flex-1 w-full grid grid-cols-5 max-md:flex max-md:flex-wrap gap-8 justify-between items-center max-md:w-11/12 max-sm:justify-evenly"
+          // key={urlImage}
+          key={change ? "one" : "two"}
         >
           {colors.map((color, i) => {
             return (
