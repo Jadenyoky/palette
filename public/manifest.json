@@ -8,6 +8,8 @@
   "id": "",
   "lang": "en",
   "dir": "auto",
+  "background_color": "#FFC107",
+  "theme_color": "#FFC107",
   "icons": [
     {
       "src": "icons/icon-72x72.png",

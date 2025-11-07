@@ -45,9 +45,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* <meta name="theme-color" content="#1d4ed8" /> */}
         <link rel="manifest" href="/manifest.json" />
-        <link rel="apple-touch-icon" href="/public/icons/icon-512x512.png" />
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="background-color" content="#FFC107" />
         <title>Palette</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
