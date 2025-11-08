@@ -8,8 +8,7 @@
   "id": "",
   "lang": "en",
   "dir": "auto",
-  "background_color": "#FFC107",
-  "theme_color": "#FFC107",
+
   "icons": [
     {
       "src": "icons/icon-72x72.png",
@@ -60,5 +59,7 @@
   "share_target": null,
   "launch_handler": null,
   "shortcuts": [],
-  "iarc_rating_id": ""
+  "iarc_rating_id": "",
+  "background_color": "#FFC107",
+  "theme_color": "#FFC107"
 }
