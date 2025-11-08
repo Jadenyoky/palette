@@ -49,8 +49,8 @@ export default function RootLayout({
         {/* <meta name="theme-color" content="#ffffff" />
         <meta name="background-color" content="#FFC107" /> */}
 
-        {/* <meta name="theme-color" content="#FFC107" />
-        <meta name="background-color" content="#FFC107" /> */}
+        <meta name="theme-color" content="#FFC107" />
+        <meta name="background-color" content="#FFC107" />
 
         <title>Palette</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
