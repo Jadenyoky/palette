@@ -45,30 +45,37 @@ const Top = () => {
       className="bottomNav fixed w-full max-h-[70px] bottom-0 flex justify-center items-center mx-auto max-md:mx-0 z-29"
       data-sal="fade"
     >
-      <div className="relative p-2 gap-4 rounded-full w-[600px] max-md:w-full mb-4 max-md:mb-0 max-md:rounded-[24px_24px_0px_0px] flex justify-between items-center  text-black *:flex-1 *:text-center overflow-hidden border border-black/10 bg-white max-md:shadow-[0px_-20px_20px] shadow-[-10px_30px_30px] shadow-white/50">
+      <div className="relative p-2 gap-4 rounded-full w-[600px] max-md:w-full mb-4 max-md:mb-0 max-md:rounded-[24px_24px_0px_0px] flex justify-between items-center  text-black *:flex-1 *:text-center overflow-hidden border border-(--color1)/20 bg-white max-md:shadow-[0px_-20px_20px] shadow-[-10px_30px_30px] shadow-white/50">
         {links.map((link, i) => {
           const isActive = link.location === pathname;
           return (
             <button
               type="button"
               key={i}
-              className={`flex justify-center gap-4 max-md:gap-3 items-center text-black/70
+              className={`flex justify-center gap-4 max-md:gap-3 items-center 
                 ${
                   isActive
-                    ? "text-cyan-500 opacity-100 hover:bg-transparent"
-                    : "opacity-50"
+                    ? "opacity-100 hover:bg-transparent text-(--color2)/50"
+                    : "opacity-50 text-black/70"
                 }
-                rounded-full w-fit px-4 py-2
-                hover:bg-cyan-100 *:transition *:duration-1000 cursor-pointer`}
+                rounded-full w-fit px-4 py-2 
+                hover:bg-(--color1)/50 *:transition *:duration-1000 cursor-pointer`}
               onClick={() => handleNavigation(link.location)}
             >
-              <i
+              <div
                 key={isActive ? 1 : 0}
-                className={`${
-                  isActive ? link.acitve : link.icon
-                } text-lg mt-1 ${isActive ? "" : ""} `}
                 data-sal="zoom-in"
-              />
+                className={`
+                   px-4 rounded-full flex justify-center items-center
+                  ${isActive ? "bg-(--color1)/20 text-(--color1)" : ""}
+                  `}
+              >
+                <i
+                  className={`${isActive ? link.acitve : link.icon}  mt-1 ${
+                    isActive ? "" : ""
+                  } `}
+                />
+              </div>
               <p
                 className={`max-md:text-sm font-semibold capitalize ${
                   isActive ? "" : "hidden"

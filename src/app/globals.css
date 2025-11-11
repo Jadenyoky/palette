@@ -42,7 +42,7 @@ HTML: <div class="loader"></div>
 */
 
 :root {
-  --color1: #ffa516;
+  --color1: #FFC107;
   --color2: green;
   --color3: coral;
   /* shadcn variables */
